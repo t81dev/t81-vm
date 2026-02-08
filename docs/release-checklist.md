@@ -38,7 +38,7 @@ Use this checklist whenever changes touch:
 
 ## Runtime-Contract-v0.4 Status
 
-- Current status: pending tag creation in this promotion cycle.
+- Current status: tagged at `t81-vm` commit `94a62c0f822eef42c8cad88c520ad99f7575ecef`.
 - Tracking RFC: `docs/rfcs/RFC-0002-runtime-contract-v0.4-scope.md`
 - Landed scope:
   - machine-readable execution-mode parity evidence metadata in `docs/contracts/vm-compatibility.json`
