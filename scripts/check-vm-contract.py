@@ -16,6 +16,7 @@ REQUIRED_TOP_LEVEL = {
     "trace_contract",
     "execution_modes",
     "execution_mode_parity_evidence",
+    "compatibility_governance",
     "trap_payload_contract",
     "trap_registry",
     "supported_opcodes",
@@ -217,6 +218,39 @@ def main() -> None:
             raise SystemExit("parity evidence artifact schema_version mismatch")
         if evidence.get("contract_version") != contract_version:
             raise SystemExit("parity evidence artifact contract_version mismatch")
+
+    compatibility_governance = contract.get("compatibility_governance", {})
+    marker_contract_path = str(compatibility_governance.get("marker_contract_path", "")).strip()
+    if marker_contract_path != "contracts/runtime-contract.json":
+        raise SystemExit(
+            "compatibility_governance.marker_contract_path must be "
+            "'contracts/runtime-contract.json'"
+        )
+
+    matrix_workflow = str(
+        compatibility_governance.get("cross_repo_matrix_workflow", "")
+    ).strip()
+    if matrix_workflow != ".github/workflows/ecosystem-compat-matrix.yml":
+        raise SystemExit(
+            "compatibility_governance.cross_repo_matrix_workflow must be "
+            "'.github/workflows/ecosystem-compat-matrix.yml'"
+        )
+
+    deterministic_fixture = str(compatibility_governance.get("deterministic_fixture", "")).strip()
+    if deterministic_fixture != "t81-examples/scripts/run-runtime-v0.4-e2e.sh":
+        raise SystemExit(
+            "compatibility_governance.deterministic_fixture must be "
+            "'t81-examples/scripts/run-runtime-v0.4-e2e.sh'"
+        )
+
+    required_release_artifact = str(
+        compatibility_governance.get("required_release_artifact", "")
+    ).strip()
+    if required_release_artifact != "runtime-v0.4-e2e-evidence":
+        raise SystemExit(
+            "compatibility_governance.required_release_artifact must be "
+            "'runtime-v0.4-e2e-evidence'"
+        )
 
     trap_payload_contract = contract.get("trap_payload_contract", {})
     if not str(trap_payload_contract.get("format_version", "")).strip():

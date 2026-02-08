@@ -24,3 +24,5 @@
 - Added mode parity evidence retention policy (`docs/parity-evidence-policy.md`) and workflow concurrency controls for faster CI feedback.
 - Added host C ABI (`include/t81/vm/c_api.h`) and shared/static artifacts.
 - Added cross-repo CI (`.github/workflows/lang-compat.yml`) and ecosystem canary workflow support.
+- Promoted runtime contract baseline preparation to `runtime-contract-v0.5` with `contract_version=2026-02-08-v5`.
+- Added compatibility governance metadata to the VM contract (`compatibility_governance`) to lock cross-repo marker path, matrix workflow, and deterministic fixture artifact expectations.

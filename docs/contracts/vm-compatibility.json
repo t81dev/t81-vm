@@ -1,5 +1,5 @@
 {
-  "contract_version": "2026-02-08-v4",
+  "contract_version": "2026-02-08-v5",
   "runtime_owner": "t81-vm",
   "accepted_program_formats": [
     {
@@ -52,6 +52,12 @@
       "tests/harness/test_vectors/faults.t81",
       "tests/harness/test_vectors/tensor_fault_chain.t81"
     ]
+  },
+  "compatibility_governance": {
+    "marker_contract_path": "contracts/runtime-contract.json",
+    "cross_repo_matrix_workflow": ".github/workflows/ecosystem-compat-matrix.yml",
+    "deterministic_fixture": "t81-examples/scripts/run-runtime-v0.4-e2e.sh",
+    "required_release_artifact": "runtime-v0.4-e2e-evidence"
   },
   "trap_payload_contract": {
     "format_version": "trap-payload-v1",

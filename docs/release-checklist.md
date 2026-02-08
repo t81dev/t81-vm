@@ -46,3 +46,11 @@ Use this checklist whenever changes touch:
   - machine-readable execution-mode parity evidence metadata in `docs/contracts/vm-compatibility.json`
   - parity evidence generation artifact: `build/mode-parity/parity-evidence.json`
   - CI artifact publication and validation of parity evidence metadata/artifact consistency
+
+## Runtime-Contract-v0.5 Status
+
+- Current status: in promotion.
+- Landed scope:
+  - compatibility governance contract metadata (`compatibility_governance`)
+  - cross-repo deterministic fixture artifact retention in ecosystem matrix workflow
+  - runtime marker discipline alignment for migration status automation
