@@ -28,6 +28,7 @@ Exit criteria:
 - Add execution traces and trap diagnostics.
 - Add package-level bytecode compatibility checks.
 - Add cross-repo compatibility CI gate with `t81-lang`.
+- Add ecosystem contract fan-out CI (`ecosystem-contract.yml`) across `t81-lang`, `t81-python`, and `t81-docs`.
 - Add end-to-end ecosystem canary (`t81-lang` -> `t81-vm` -> `t81-python`).
 
 Exit criteria:

@@ -29,6 +29,7 @@ See `docs/ecosystem-map.md` for interface-level detail.
 - `docs/ecosystem-map.md` - cross-repo artifact and dependency mapping
 - `docs/runtime-ownership.md` - runtime ownership freeze and boundary rules
 - `docs/contracts/vm-compatibility.json` - machine-readable compatibility contract
+- `scripts/check-vm-contract.py` - contract artifact schema/discipline validator
 - `docs/parity-backlog.md` - explicit remaining parity delta vs `t81-foundation`
 - `docs/roadmap.md` - phased delivery plan
 - `docs/foundation-migration.md` - targeted migration plan from `t81-foundation`
@@ -48,6 +49,8 @@ Cross-repo canary check:
 ```bash
 make canary-check
 ```
+
+Cross-repo contract fan-out CI workflow: `.github/workflows/ecosystem-contract.yml`.
 
 CLI example:
 

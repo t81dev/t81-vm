@@ -15,6 +15,9 @@ jobs:
       - name: Build + test
         run: make check
 
+      - name: Validate VM contract artifact
+        run: python3 scripts/check-vm-contract.py
+
       - name: Contract discipline
         if: github.event_name == 'pull_request'
         run: BASE_REF="${{ github.base_ref }}" scripts/check-contract-discipline.sh

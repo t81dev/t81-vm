@@ -9,6 +9,34 @@ This backlog tracks explicit parity gaps between `t81-vm` and the upstream runti
 - Opcode coverage: `29` (`t81-vm`) vs `81` (`t81-foundation`)
 - VM conformance tests (`vm*_test.cpp`): `10` (`t81-vm`) vs `13` (`t81-foundation`)
 
+## Priority Burn-Down Order (By Ecosystem Impact)
+
+### P0: Consumer Stability (`t81-lang` / `t81-python` blockers)
+
+- [ ] Comparison ops: `Less`, `LessEqual`, `Greater`, `GreaterEqual`, `Equal`, `NotEqual`
+- [ ] Numeric conversions: `I2F`, `F2I`, `I2Frac`, `Frac2I`
+- [ ] Port `vm_extended_ops_test.cpp`
+
+### P1: Deterministic Numeric Runtime Coverage
+
+- [ ] Float/fraction arithmetic: `FAdd`, `FSub`, `FMul`, `FDiv`, `FracAdd`, `FracSub`, `FracMul`, `FracDiv`
+- [ ] Port `vm_float_fraction_ops_test.cpp`
+
+### P2: Structured Values + Language Surface Completion
+
+- [ ] Structured value ops: `MakeOption*`, `Option*`, `MakeResult*`, `Result*`, `MakeEnum*`, `Enum*`
+
+### P3: Tensor and Axion Extensions
+
+- [ ] Tensor ops: `TVecAdd`, `TMatMul`, `TTenDot`, `TVecMul`, `TTranspose`, `TExp`, `TSqrt`, `TSiLU`, `TSoftmax`, `TRMSNorm`, `TRoPE`, `ChkShape`
+- [ ] Axion hooks: `AxRead`, `AxSet`, `AxVerify`
+- [ ] Port `vm_tensor_test.cpp`
+
+### P4: Remaining Logical/Runtime Extensions
+
+- [ ] Ternary logical ops: `TNot`, `TAnd`, `TOr`, `TXor`
+- [ ] Runtime extensions: `WeightsLoad`, `SetF`
+
 ## Pending Opcode Families
 
 1. Ternary logical ops: `TNot`, `TAnd`, `TOr`, `TXor`
@@ -32,3 +60,7 @@ This backlog tracks explicit parity gaps between `t81-vm` and the upstream runti
 2. All upstream `vm*_test.cpp` classes are represented in `t81-vm` suites.
 3. `t81-lang` compatibility gate validates no contract regressions.
 4. `t81-python` canary passes in both pinned and floating integration lanes.
+
+## Tracking Rule
+
+- Prioritize items strictly in P0 -> P4 order unless an explicit compatibility incident requires reprioritization.

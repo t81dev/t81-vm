@@ -1,0 +1,55 @@
+name: ecosystem-contract
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  contract-fanout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout t81-vm
+        uses: actions/checkout@v4
+        with:
+          path: t81-vm
+
+      - name: Checkout t81-lang
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-lang
+          path: t81-lang
+
+      - name: Checkout t81-python
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-python
+          path: t81-python
+
+      - name: Checkout t81-docs
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-docs
+          path: t81-docs
+
+      - name: Validate VM contract schema
+        run: python3 scripts/check-vm-contract.py
+        working-directory: t81-vm
+
+      - name: Validate t81-lang compatibility gate
+        run: python3 scripts/check-vm-compat.py
+        working-directory: t81-lang
+        env:
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm
+
+      - name: Validate t81-python contract gate
+        run: python3 scripts/check-vm-contract.py
+        working-directory: t81-python
+        env:
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm
+
+      - name: Validate t81-docs runtime contract sync
+        run: python3 scripts/check-runtime-contract-sync.py
+        working-directory: t81-docs
+        env:
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm
