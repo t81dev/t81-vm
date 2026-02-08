@@ -1,0 +1,20 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  vm-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build + test
+        run: make check
+
+      - name: Contract discipline
+        if: github.event_name == 'pull_request'
+        run: BASE_REF="${{ github.base_ref }}" scripts/check-contract-discipline.sh

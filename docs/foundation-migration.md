@@ -81,6 +81,8 @@ This sequence gives contract depth plus immediate regression protection without 
 
 ## Next Parity Slices
 
+See `docs/parity-backlog.md` for the canonical gap tracker.
+
 ### Slice A (immediate)
 
 1. Expand control-flow and stack op coverage for conditional branches and call/ret corner-cases.

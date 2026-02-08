@@ -29,6 +29,7 @@ See `docs/ecosystem-map.md` for interface-level detail.
 - `docs/ecosystem-map.md` - cross-repo artifact and dependency mapping
 - `docs/runtime-ownership.md` - runtime ownership freeze and boundary rules
 - `docs/contracts/vm-compatibility.json` - machine-readable compatibility contract
+- `docs/parity-backlog.md` - explicit remaining parity delta vs `t81-foundation`
 - `docs/roadmap.md` - phased delivery plan
 - `docs/foundation-migration.md` - targeted migration plan from `t81-foundation`
 - `src/vm/` - implementation entrypoint for the HanoiVM runtime
