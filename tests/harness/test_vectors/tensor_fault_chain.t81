@@ -1,0 +1,7 @@
+# tensor-op parity vector (expected deterministic fault path)
+LOADIMM 0 1 0
+LOADIMM 1 2 0
+TVECADD 2 0 1
+TMATMUL 3 0 1
+TEXP 4 0 0
+HALT 0 0 0

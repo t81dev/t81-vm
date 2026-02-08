@@ -49,7 +49,8 @@
     ],
     "canonical_vectors": [
       "tests/harness/test_vectors/arithmetic.t81",
-      "tests/harness/test_vectors/faults.t81"
+      "tests/harness/test_vectors/faults.t81",
+      "tests/harness/test_vectors/tensor_fault_chain.t81"
     ]
   },
   "trap_payload_contract": {

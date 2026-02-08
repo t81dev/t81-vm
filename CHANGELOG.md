@@ -20,5 +20,7 @@
 - Promoted runtime contract baseline preparation to `runtime-contract-v0.3` with `contract_version=2026-02-08-v3` (no host ABI break; `host_abi.version` remains `0.1.0`).
 - Added machine-readable execution-mode parity evidence fields (`execution_mode_parity_evidence`) to the VM contract artifact and validator as `runtime-contract-v0.4` preparation.
 - Promoted runtime contract baseline to `runtime-contract-v0.4` with `contract_version=2026-02-08-v4`, including CI-published mode parity evidence artifacts and contract-enforced evidence validation.
+- Added tensor-op fault parity vector (`tests/harness/test_vectors/tensor_fault_chain.t81`) to canonical mode-parity evidence coverage.
+- Added mode parity evidence retention policy (`docs/parity-evidence-policy.md`) and workflow concurrency controls for faster CI feedback.
 - Added host C ABI (`include/t81/vm/c_api.h`) and shared/static artifacts.
 - Added cross-repo CI (`.github/workflows/lang-compat.yml`) and ecosystem canary workflow support.

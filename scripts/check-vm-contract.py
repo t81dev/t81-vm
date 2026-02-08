@@ -29,6 +29,7 @@ REQUIRED_PARITY_SIGNALS = {"STATE_HASH", "TRAP_CLASS", "TRAP_PAYLOAD"}
 REQUIRED_PARITY_VECTORS = {
     "tests/harness/test_vectors/arithmetic.t81",
     "tests/harness/test_vectors/faults.t81",
+    "tests/harness/test_vectors/tensor_fault_chain.t81",
 }
 REQUIRED_OPCODES = {
     "Nop",

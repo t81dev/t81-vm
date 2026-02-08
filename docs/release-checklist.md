@@ -26,6 +26,8 @@ Use this checklist whenever changes touch:
    - `t81-python/docs/compatibility.md`
    - `t81-roadmap/MIGRATION_DASHBOARD.md`
    - `t81-docs/docs/runtime-contract.md`
+6. Validate parity evidence retention/publication policy:
+   - `docs/parity-evidence-policy.md`
 
 ## Runtime-Contract-v0.3 Status
 

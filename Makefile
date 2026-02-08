@@ -40,6 +40,7 @@ docs-check:
 	@test -f docs/architecture.md
 	@test -f docs/ecosystem-map.md
 	@test -f docs/runtime-ownership.md
+	@test -f docs/parity-evidence-policy.md
 	@test -f docs/contracts/vm-compatibility.json
 	@test -f docs/foundation-migration.md
 	@test -f docs/roadmap.md

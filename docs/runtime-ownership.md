@@ -38,3 +38,4 @@ Contract-impacting changes in any of these surfaces require:
 - Contract-impacting runtime changes must bump `contract_version` in `docs/contracts/vm-compatibility.json`.
 - The same change must include a changelog note in the dependent repositories (`t81-lang`, `t81-python`) before merge.
 - Runtime contract tags follow `runtime-contract-vX.Y` and are published from `t81-vm`.
+- Mode parity evidence publication/retention must follow `docs/parity-evidence-policy.md`.
