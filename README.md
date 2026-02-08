@@ -63,7 +63,7 @@ make perf-check
 Latest local report path: `build/perf/runtime-bench-report.json`.
 
 Cross-repo contract fan-out CI workflow: `.github/workflows/ecosystem-contract.yml`.
-Cross-repo compatibility matrix workflow: `.github/workflows/ecosystem-compat-matrix.yml`.
+Cross-repo compatibility matrix workflow: `.github/workflows/ecosystem-compat-matrix.yml` (includes deterministic fixture artifact upload).
 
 CLI example:
 

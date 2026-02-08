@@ -104,3 +104,32 @@ jobs:
           T81_LANG_DIR: ${{ github.workspace }}/t81-lang
           T81_VM_DIR: ${{ github.workspace }}/t81-vm
           T81_PYTHON_DIR: ${{ github.workspace }}/t81-python
+
+      - name: Capture deterministic evidence summary
+        run: |
+          VM_OUT="t81-examples/examples/runtime-v0.4-e2e/vm.out"
+          CANARY_JSON="t81-examples/examples/runtime-v0.4-e2e/canary.tisc.json"
+          if [[ ! -f "${VM_OUT}" || ! -f "${CANARY_JSON}" ]]; then
+            echo "missing deterministic evidence artifacts" >&2
+            exit 1
+          fi
+          STATE_HASH="$(grep '^STATE_HASH ' "${VM_OUT}" | tail -n1 | awk '{print $2}')"
+          if [[ -z "${STATE_HASH}" ]]; then
+            echo "STATE_HASH not found in ${VM_OUT}" >&2
+            exit 1
+          fi
+          {
+            echo "## Deterministic Fixture Evidence"
+            echo "- state hash: \`${STATE_HASH}\`"
+            echo "- canary artifact: \`examples/runtime-v0.4-e2e/canary.tisc.json\`"
+            echo "- vm output artifact: \`examples/runtime-v0.4-e2e/vm.out\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload deterministic fixture artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-v0.4-e2e-evidence
+          path: |
+            t81-examples/examples/runtime-v0.4-e2e/canary.tisc.json
+            t81-examples/examples/runtime-v0.4-e2e/vm.out
+          if-no-files-found: error
