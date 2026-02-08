@@ -16,13 +16,13 @@ fi
 "${VM_BIN}" --snapshot --mode interpreter "${PROGRAM}" > "${OUT_DIR}/interpreter.out"
 "${VM_BIN}" --snapshot --mode accelerated-preview "${PROGRAM}" > "${OUT_DIR}/accelerated_preview.out" 2> "${OUT_DIR}/accelerated_preview.err"
 
-if ! rg -q "^MODE accelerated-preview" "${OUT_DIR}/accelerated_preview.err"; then
+if ! grep -q "^MODE accelerated-preview" "${OUT_DIR}/accelerated_preview.err"; then
   echo "missing accelerated-preview mode marker" >&2
   exit 1
 fi
 
-rg '^STATE_HASH ' "${OUT_DIR}/interpreter.out" > "${OUT_DIR}/interpreter.hash"
-rg '^STATE_HASH ' "${OUT_DIR}/accelerated_preview.out" > "${OUT_DIR}/accelerated_preview.hash"
+grep '^STATE_HASH ' "${OUT_DIR}/interpreter.out" > "${OUT_DIR}/interpreter.hash"
+grep '^STATE_HASH ' "${OUT_DIR}/accelerated_preview.out" > "${OUT_DIR}/accelerated_preview.hash"
 
 if ! cmp -s "${OUT_DIR}/interpreter.hash" "${OUT_DIR}/accelerated_preview.hash"; then
   echo "mode parity failure: STATE_HASH mismatch" >&2
