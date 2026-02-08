@@ -44,6 +44,14 @@ bool valid_opcode(t81::tisc::Opcode opcode) {
     case Opcode::F2I:
     case Opcode::I2Frac:
     case Opcode::Frac2I:
+    case Opcode::FAdd:
+    case Opcode::FSub:
+    case Opcode::FMul:
+    case Opcode::FDiv:
+    case Opcode::FracAdd:
+    case Opcode::FracSub:
+    case Opcode::FracMul:
+    case Opcode::FracDiv:
     case Opcode::Less:
     case Opcode::LessEqual:
     case Opcode::Greater:
@@ -87,6 +95,14 @@ std::optional<Trap> validate_program(const t81::tisc::Program& program) {
       case t81::tisc::Opcode::Add:
       case t81::tisc::Opcode::Sub:
       case t81::tisc::Opcode::Mul:
+      case t81::tisc::Opcode::FAdd:
+      case t81::tisc::Opcode::FSub:
+      case t81::tisc::Opcode::FMul:
+      case t81::tisc::Opcode::FDiv:
+      case t81::tisc::Opcode::FracAdd:
+      case t81::tisc::Opcode::FracSub:
+      case t81::tisc::Opcode::FracMul:
+      case t81::tisc::Opcode::FracDiv:
       case t81::tisc::Opcode::Less:
       case t81::tisc::Opcode::LessEqual:
       case t81::tisc::Opcode::Greater:

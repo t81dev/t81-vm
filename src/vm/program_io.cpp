@@ -53,6 +53,14 @@ std::optional<t81::tisc::Opcode> opcode_from_string(const std::string& raw) {
   if (s == "F2I") return Opcode::F2I;
   if (s == "I2FRAC") return Opcode::I2Frac;
   if (s == "FRAC2I") return Opcode::Frac2I;
+  if (s == "FADD") return Opcode::FAdd;
+  if (s == "FSUB") return Opcode::FSub;
+  if (s == "FMUL") return Opcode::FMul;
+  if (s == "FDIV") return Opcode::FDiv;
+  if (s == "FRACADD") return Opcode::FracAdd;
+  if (s == "FRACSUB") return Opcode::FracSub;
+  if (s == "FRACMUL") return Opcode::FracMul;
+  if (s == "FRACDIV") return Opcode::FracDiv;
   if (s == "LESS" || s == "LT") return Opcode::Less;
   if (s == "LESSEQUAL" || s == "LE") return Opcode::LessEqual;
   if (s == "GREATER" || s == "GT") return Opcode::Greater;

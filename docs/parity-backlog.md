@@ -6,8 +6,8 @@ This backlog tracks explicit parity gaps between `t81-vm` and the upstream runti
 
 ## Current Delta
 
-- Opcode coverage: `39` (`t81-vm`) vs `81` (`t81-foundation`)
-- VM conformance tests (`vm*_test.cpp`): `10` (`t81-vm`) vs `13` (`t81-foundation`)
+- Opcode coverage: `47` (`t81-vm`) vs `81` (`t81-foundation`)
+- VM conformance tests (`vm*_test.cpp`): `11` (`t81-vm`) vs `13` (`t81-foundation`)
 
 ## Priority Burn-Down Order (By Ecosystem Impact)
 
@@ -19,8 +19,8 @@ This backlog tracks explicit parity gaps between `t81-vm` and the upstream runti
 
 ### P1: Deterministic Numeric Runtime Coverage
 
-- [ ] Float/fraction arithmetic: `FAdd`, `FSub`, `FMul`, `FDiv`, `FracAdd`, `FracSub`, `FracMul`, `FracDiv`
-- [ ] Port `vm_float_fraction_ops_test.cpp`
+- [x] Float/fraction arithmetic: `FAdd`, `FSub`, `FMul`, `FDiv`, `FracAdd`, `FracSub`, `FracMul`, `FracDiv`
+- [x] Port `vm_float_fraction_ops_test.cpp`
 
 ### P2: Structured Values + Language Surface Completion
 
@@ -41,15 +41,13 @@ This backlog tracks explicit parity gaps between `t81-vm` and the upstream runti
 
 1. Ternary logical ops: `TNot`, `TAnd`, `TOr`, `TXor`
 2. Axion hooks: `AxRead`, `AxSet`, `AxVerify`
-3. Float/fraction arithmetic: `FAdd`, `FSub`, `FMul`, `FDiv`, `FracAdd`, `FracSub`, `FracMul`, `FracDiv`
-4. Tensor ops: `TVecAdd`, `TMatMul`, `TTenDot`, `TVecMul`, `TTranspose`, `TExp`, `TSqrt`, `TSiLU`, `TSoftmax`, `TRMSNorm`, `TRoPE`, `ChkShape`
-5. Structured value ops: `MakeOption*`, `Option*`, `MakeResult*`, `Result*`, `MakeEnum*`, `Enum*`
-6. Runtime extensions: `WeightsLoad`, `SetF`
+3. Tensor ops: `TVecAdd`, `TMatMul`, `TTenDot`, `TVecMul`, `TTranspose`, `TExp`, `TSqrt`, `TSiLU`, `TSoftmax`, `TRMSNorm`, `TRoPE`, `ChkShape`
+4. Structured value ops: `MakeOption*`, `Option*`, `MakeResult*`, `Result*`, `MakeEnum*`, `Enum*`
+5. Runtime extensions: `WeightsLoad`, `SetF`
 
 ## Pending VM Tests To Port
 
-1. `vm_float_fraction_ops_test.cpp`
-2. `vm_tensor_test.cpp`
+1. `vm_tensor_test.cpp`
 
 ## Exit Criteria For Parity Phase
 

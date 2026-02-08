@@ -88,20 +88,34 @@ class Interpreter final : public IVirtualMachine {
       case t81::tisc::Opcode::Sub:
       case t81::tisc::Opcode::Mul:
       case t81::tisc::Opcode::Div:
-      case t81::tisc::Opcode::Mod: {
+      case t81::tisc::Opcode::Mod:
+      case t81::tisc::Opcode::FAdd:
+      case t81::tisc::Opcode::FSub:
+      case t81::tisc::Opcode::FMul:
+      case t81::tisc::Opcode::FDiv:
+      case t81::tisc::Opcode::FracAdd:
+      case t81::tisc::Opcode::FracSub:
+      case t81::tisc::Opcode::FracMul:
+      case t81::tisc::Opcode::FracDiv: {
         const auto lhs = state_.registers[static_cast<std::size_t>(insn.b)];
         const auto rhs = state_.registers[static_cast<std::size_t>(insn.c)];
-        if ((insn.opcode == t81::tisc::Opcode::Div || insn.opcode == t81::tisc::Opcode::Mod) && rhs == 0) {
+        if ((insn.opcode == t81::tisc::Opcode::Div || insn.opcode == t81::tisc::Opcode::Mod ||
+             insn.opcode == t81::tisc::Opcode::FDiv || insn.opcode == t81::tisc::Opcode::FracDiv) &&
+            rhs == 0) {
           return trap(Trap::DivisionFault, insn.opcode, pc);
         }
         std::int64_t result = 0;
-        if (insn.opcode == t81::tisc::Opcode::Add) {
+        if (insn.opcode == t81::tisc::Opcode::Add || insn.opcode == t81::tisc::Opcode::FAdd ||
+            insn.opcode == t81::tisc::Opcode::FracAdd) {
           result = lhs + rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::Sub) {
+        } else if (insn.opcode == t81::tisc::Opcode::Sub || insn.opcode == t81::tisc::Opcode::FSub ||
+                   insn.opcode == t81::tisc::Opcode::FracSub) {
           result = lhs - rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::Mul) {
+        } else if (insn.opcode == t81::tisc::Opcode::Mul || insn.opcode == t81::tisc::Opcode::FMul ||
+                   insn.opcode == t81::tisc::Opcode::FracMul) {
           result = lhs * rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::Div) {
+        } else if (insn.opcode == t81::tisc::Opcode::Div || insn.opcode == t81::tisc::Opcode::FDiv ||
+                   insn.opcode == t81::tisc::Opcode::FracDiv) {
           result = lhs / rhs;
         } else {
           result = lhs % rhs;
