@@ -29,9 +29,14 @@ Use this checklist whenever changes touch:
 
 ## Runtime-Contract-v0.3 Status
 
-- Current status: pending tag creation in this promotion cycle.
+- Current status: tagged at `t81-vm` commit `3fd42f63d6e8c916aeff6d2332c6854e2127aa3b`.
 - Prior baseline: `runtime-contract-v0.2` tagged at `t81-vm` commit `30306b32eea8b7acde1be354ed10d24881989225`.
 - Landed scope:
   - stable trap payload line (`TRAP_PAYLOAD ...`)
   - trace write-delta annotations (`:write=...`)
 - Keep pinned/floating downstream lanes green before promoting the next contract tag.
+
+## Runtime-Contract-v0.4 Kickoff
+
+- Tracking RFC: `docs/rfcs/RFC-0002-runtime-contract-v0.4-scope.md`
+- Initial objective: make execution-mode parity evidence machine-readable and contract-enforced.

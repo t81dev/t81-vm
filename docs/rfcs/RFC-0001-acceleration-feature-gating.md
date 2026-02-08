@@ -6,7 +6,7 @@ Last updated: 2026-02-08
 
 ## Context
 
-`t81-vm` now has a tagged contract baseline (`runtime-contract-v0.2`) and closed opcode parity against `t81-foundation`.
+`t81-vm` now has a tagged contract baseline (`runtime-contract-v0.3`) and closed opcode parity against `t81-foundation`.
 Phase 4 work requires acceleration experiments, but deterministic behavior and contract compatibility are non-negotiable.
 
 ## Goals
