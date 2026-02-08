@@ -8,7 +8,7 @@ run_ok() {
   echo "example ok: $file"
   local out
   out="$($vm --trace --snapshot "$file")"
-  echo "$out" | rg '^STATE_HASH ' >/dev/null
+  echo "$out" | grep -E '^STATE_HASH ' >/dev/null
 }
 
 run_fault() {
@@ -22,7 +22,7 @@ run_fault() {
     echo "expected failure for $file" >&2
     exit 1
   fi
-  rg 'FAULT' /tmp/t81vm_example_err.txt >/dev/null
+  grep -E 'FAULT' /tmp/t81vm_example_err.txt >/dev/null
 }
 
 run_ok examples/runnable/arithmetic.t81vm
