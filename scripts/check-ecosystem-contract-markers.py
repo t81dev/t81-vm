@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import subprocess
 from pathlib import Path
 
 
@@ -31,9 +30,9 @@ def main() -> None:
     repo_marker = load_json(args.repo_dir / "contracts/runtime-contract.json")
 
     vm_contract_version = str(vm_contract.get("contract_version", "")).strip()
-    vm_head = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=args.vm_dir, text=True
-    ).strip()
+    vm_baseline_pin = str(vm_marker.get("vm_main_pin", "")).strip()
+    if not vm_baseline_pin:
+        raise SystemExit("t81-vm marker missing vm_main_pin")
 
     repo_contract_version = str(repo_marker.get("contract_version", "")).strip()
     if repo_contract_version != vm_contract_version:
@@ -52,10 +51,10 @@ def main() -> None:
     pinned = str(repo_marker.get("vm_main_pin", "")).strip()
     if not pinned:
         raise SystemExit(f"{args.repo_name}: vm_main_pin must be non-empty")
-    if pinned != vm_head:
+    if pinned != vm_baseline_pin:
         raise SystemExit(
             f"{args.repo_name}: vm_main_pin mismatch "
-            f"(repo={pinned}, checked_vm={vm_head})"
+            f"(repo={pinned}, vm_baseline={vm_baseline_pin})"
         )
 
     print(f"{args.repo_name}: runtime contract marker ok")
