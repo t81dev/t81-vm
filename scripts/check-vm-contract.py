@@ -36,6 +36,16 @@ REQUIRED_OPCODES = {
     "JumpIfNotZero",
     "Cmp",
     "Trap",
+    "I2F",
+    "F2I",
+    "I2Frac",
+    "Frac2I",
+    "Less",
+    "LessEqual",
+    "Greater",
+    "GreaterEqual",
+    "Equal",
+    "NotEqual",
 }
 
 

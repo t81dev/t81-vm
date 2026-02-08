@@ -40,6 +40,16 @@ bool valid_opcode(t81::tisc::Opcode opcode) {
     case Opcode::Neg:
     case Opcode::JumpIfNegative:
     case Opcode::JumpIfPositive:
+    case Opcode::I2F:
+    case Opcode::F2I:
+    case Opcode::I2Frac:
+    case Opcode::Frac2I:
+    case Opcode::Less:
+    case Opcode::LessEqual:
+    case Opcode::Greater:
+    case Opcode::GreaterEqual:
+    case Opcode::Equal:
+    case Opcode::NotEqual:
     case Opcode::StackAlloc:
     case Opcode::StackFree:
     case Opcode::HeapAlloc:
@@ -77,6 +87,12 @@ std::optional<Trap> validate_program(const t81::tisc::Program& program) {
       case t81::tisc::Opcode::Add:
       case t81::tisc::Opcode::Sub:
       case t81::tisc::Opcode::Mul:
+      case t81::tisc::Opcode::Less:
+      case t81::tisc::Opcode::LessEqual:
+      case t81::tisc::Opcode::Greater:
+      case t81::tisc::Opcode::GreaterEqual:
+      case t81::tisc::Opcode::Equal:
+      case t81::tisc::Opcode::NotEqual:
         if (!valid_reg(insn.a) || !valid_reg(insn.b) || !valid_reg(insn.c)) {
           return Trap::DecodeFault;
         }
@@ -97,6 +113,10 @@ std::optional<Trap> validate_program(const t81::tisc::Program& program) {
       case t81::tisc::Opcode::Pop:
       case t81::tisc::Opcode::Neg:
       case t81::tisc::Opcode::Call:
+      case t81::tisc::Opcode::I2F:
+      case t81::tisc::Opcode::F2I:
+      case t81::tisc::Opcode::I2Frac:
+      case t81::tisc::Opcode::Frac2I:
       case t81::tisc::Opcode::StackAlloc:
       case t81::tisc::Opcode::StackFree:
       case t81::tisc::Opcode::HeapAlloc:

@@ -49,6 +49,16 @@ std::optional<t81::tisc::Opcode> opcode_from_string(const std::string& raw) {
   if (s == "RET") return Opcode::Ret;
   if (s == "TRAP") return Opcode::Trap;
   if (s == "NEG") return Opcode::Neg;
+  if (s == "I2F") return Opcode::I2F;
+  if (s == "F2I") return Opcode::F2I;
+  if (s == "I2FRAC") return Opcode::I2Frac;
+  if (s == "FRAC2I") return Opcode::Frac2I;
+  if (s == "LESS" || s == "LT") return Opcode::Less;
+  if (s == "LESSEQUAL" || s == "LE") return Opcode::LessEqual;
+  if (s == "GREATER" || s == "GT") return Opcode::Greater;
+  if (s == "GREATEREQUAL" || s == "GE") return Opcode::GreaterEqual;
+  if (s == "EQUAL" || s == "EQ") return Opcode::Equal;
+  if (s == "NOTEQUAL" || s == "NEQ") return Opcode::NotEqual;
   if (s == "STACKALLOC") return Opcode::StackAlloc;
   if (s == "STACKFREE") return Opcode::StackFree;
   if (s == "HEAPALLOC") return Opcode::HeapAlloc;

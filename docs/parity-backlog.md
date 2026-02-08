@@ -6,16 +6,16 @@ This backlog tracks explicit parity gaps between `t81-vm` and the upstream runti
 
 ## Current Delta
 
-- Opcode coverage: `29` (`t81-vm`) vs `81` (`t81-foundation`)
+- Opcode coverage: `39` (`t81-vm`) vs `81` (`t81-foundation`)
 - VM conformance tests (`vm*_test.cpp`): `10` (`t81-vm`) vs `13` (`t81-foundation`)
 
 ## Priority Burn-Down Order (By Ecosystem Impact)
 
 ### P0: Consumer Stability (`t81-lang` / `t81-python` blockers)
 
-- [ ] Comparison ops: `Less`, `LessEqual`, `Greater`, `GreaterEqual`, `Equal`, `NotEqual`
-- [ ] Numeric conversions: `I2F`, `F2I`, `I2Frac`, `Frac2I`
-- [ ] Port `vm_extended_ops_test.cpp`
+- [x] Comparison ops: `Less`, `LessEqual`, `Greater`, `GreaterEqual`, `Equal`, `NotEqual`
+- [x] Numeric conversions: `I2F`, `F2I`, `I2Frac`, `Frac2I`
+- [x] Port `vm_extended_ops_test.cpp`
 
 ### P1: Deterministic Numeric Runtime Coverage
 
@@ -41,18 +41,15 @@ This backlog tracks explicit parity gaps between `t81-vm` and the upstream runti
 
 1. Ternary logical ops: `TNot`, `TAnd`, `TOr`, `TXor`
 2. Axion hooks: `AxRead`, `AxSet`, `AxVerify`
-3. Numeric conversions: `I2F`, `F2I`, `I2Frac`, `Frac2I`
-4. Float/fraction arithmetic: `FAdd`, `FSub`, `FMul`, `FDiv`, `FracAdd`, `FracSub`, `FracMul`, `FracDiv`
-5. Tensor ops: `TVecAdd`, `TMatMul`, `TTenDot`, `TVecMul`, `TTranspose`, `TExp`, `TSqrt`, `TSiLU`, `TSoftmax`, `TRMSNorm`, `TRoPE`, `ChkShape`
-6. Structured value ops: `MakeOption*`, `Option*`, `MakeResult*`, `Result*`, `MakeEnum*`, `Enum*`
-7. Comparison ops: `Less`, `LessEqual`, `Greater`, `GreaterEqual`, `Equal`, `NotEqual`
-8. Runtime extensions: `WeightsLoad`, `SetF`
+3. Float/fraction arithmetic: `FAdd`, `FSub`, `FMul`, `FDiv`, `FracAdd`, `FracSub`, `FracMul`, `FracDiv`
+4. Tensor ops: `TVecAdd`, `TMatMul`, `TTenDot`, `TVecMul`, `TTranspose`, `TExp`, `TSqrt`, `TSiLU`, `TSoftmax`, `TRMSNorm`, `TRoPE`, `ChkShape`
+5. Structured value ops: `MakeOption*`, `Option*`, `MakeResult*`, `Result*`, `MakeEnum*`, `Enum*`
+6. Runtime extensions: `WeightsLoad`, `SetF`
 
 ## Pending VM Tests To Port
 
-1. `vm_extended_ops_test.cpp`
-2. `vm_float_fraction_ops_test.cpp`
-3. `vm_tensor_test.cpp`
+1. `vm_float_fraction_ops_test.cpp`
+2. `vm_tensor_test.cpp`
 
 ## Exit Criteria For Parity Phase
 

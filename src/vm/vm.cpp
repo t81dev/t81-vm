@@ -138,6 +138,43 @@ class Interpreter final : public IVirtualMachine {
         set_flags(state_.registers[static_cast<std::size_t>(insn.a)]);
         ++state_.pc;
         return trace_ok(insn.opcode, pc);
+      case t81::tisc::Opcode::I2F:
+      case t81::tisc::Opcode::F2I:
+      case t81::tisc::Opcode::I2Frac:
+      case t81::tisc::Opcode::Frac2I:
+        // This VM currently models scalar registers in deterministic int64 space.
+        // Conversion ops are represented as canonical scalar moves.
+        state_.registers[static_cast<std::size_t>(insn.a)] = state_.registers[static_cast<std::size_t>(insn.b)];
+        set_flags(state_.registers[static_cast<std::size_t>(insn.a)]);
+        ++state_.pc;
+        return trace_ok(insn.opcode, pc);
+      case t81::tisc::Opcode::Less:
+      case t81::tisc::Opcode::LessEqual:
+      case t81::tisc::Opcode::Greater:
+      case t81::tisc::Opcode::GreaterEqual:
+      case t81::tisc::Opcode::Equal:
+      case t81::tisc::Opcode::NotEqual: {
+        const auto lhs = state_.registers[static_cast<std::size_t>(insn.b)];
+        const auto rhs = state_.registers[static_cast<std::size_t>(insn.c)];
+        bool result = false;
+        if (insn.opcode == t81::tisc::Opcode::Less) {
+          result = lhs < rhs;
+        } else if (insn.opcode == t81::tisc::Opcode::LessEqual) {
+          result = lhs <= rhs;
+        } else if (insn.opcode == t81::tisc::Opcode::Greater) {
+          result = lhs > rhs;
+        } else if (insn.opcode == t81::tisc::Opcode::GreaterEqual) {
+          result = lhs >= rhs;
+        } else if (insn.opcode == t81::tisc::Opcode::Equal) {
+          result = lhs == rhs;
+        } else {
+          result = lhs != rhs;
+        }
+        state_.registers[static_cast<std::size_t>(insn.a)] = result ? 1 : 0;
+        set_flags(state_.registers[static_cast<std::size_t>(insn.a)]);
+        ++state_.pc;
+        return trace_ok(insn.opcode, pc);
+      }
       case t81::tisc::Opcode::Push:
         if (!push_register(static_cast<std::size_t>(insn.a))) {
           log_bounds_fault(insn.opcode, MemorySegmentKind::Stack, static_cast<std::int64_t>(state_.sp),
