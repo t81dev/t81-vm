@@ -15,6 +15,14 @@ jobs:
       - name: Build + test
         run: make check
 
+      - name: Upload perf report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vm-perf-report
+          path: build/perf/runtime-bench-report.json
+          if-no-files-found: ignore
+
       - name: Validate VM contract artifact
         run: python3 scripts/check-vm-contract.py
 

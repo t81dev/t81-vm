@@ -1,0 +1,11 @@
+{
+  "suite": "deterministic_runtime_bench",
+  "profile_id": "github-ubuntu-latest-x64",
+  "iterations": 200000,
+  "expected_steps": 600003,
+  "max_steps": 650000,
+  "warmup_runs": 1,
+  "measure_runs": 5,
+  "min_instructions_per_sec": 2000000,
+  "expected_state_hash": "0x037b97f94330aee2"
+}

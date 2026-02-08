@@ -34,6 +34,8 @@ See `docs/ecosystem-map.md` for interface-level detail.
 - `docs/roadmap.md` - phased delivery plan
 - `docs/foundation-migration.md` - targeted migration plan from `t81-foundation`
 - `docs/release-checklist.md` - contract/ABI release discipline for runtime tags
+- `docs/benchmarks/vm-perf-baseline.json` - deterministic runtime throughput floor contract
+- `docs/rfcs/` - VM RFCs for feature gating and execution mode evolution
 - `src/vm/` - implementation entrypoint for the HanoiVM runtime
 - `tests/` - deterministic conformance and regression suites
 
@@ -43,7 +45,7 @@ See `docs/ecosystem-map.md` for interface-level detail.
 make check
 ```
 
-`make check` validates docs, builds the VM, runs C++ regression tests, and runs deterministic replay harness checks.
+`make check` validates docs, builds the VM, runs C++ regression tests, runs deterministic replay harness checks, and executes perf regression checks.
 
 Cross-repo canary check:
 
@@ -51,12 +53,20 @@ Cross-repo canary check:
 make canary-check
 ```
 
+Performance regression check:
+
+```bash
+make perf-check
+```
+
+Latest local report path: `build/perf/runtime-bench-report.json`.
+
 Cross-repo contract fan-out CI workflow: `.github/workflows/ecosystem-contract.yml`.
 
 CLI example:
 
 ```bash
-build/t81vm --trace --snapshot tests/harness/test_vectors/arithmetic.t81
+build/t81vm --trace --snapshot --max-steps 200000 tests/harness/test_vectors/arithmetic.t81
 ```
 
 Runnable example artifacts:

@@ -1,4 +1,4 @@
-.PHONY: check docs-check build-check test-check harness-check examples-check canary-check clean tree
+.PHONY: check docs-check build-check test-check harness-check examples-check perf-check canary-check clean tree
 
 CXX ?= c++
 CXXFLAGS ?= -std=c++23 -O2 -Wall -Wextra -Wpedantic -Iinclude
@@ -19,10 +19,14 @@ endif
 TEST_SRCS := $(wildcard tests/cpp/*_test.cpp)
 TEST_BINS := $(patsubst tests/cpp/%.cpp,build/%,$(TEST_SRCS))
 
-check: docs-check build-check test-check harness-check examples-check
+check: docs-check build-check test-check harness-check examples-check perf-check
 
 canary-check:
 	@bash scripts/ecosystem-canary.sh
+
+perf-check: $(VM_BIN)
+	@python3 scripts/perf-regression-check.py
+	@echo "perf-check: ok"
 
 docs-check:
 	@test -f README.md
@@ -36,6 +40,8 @@ docs-check:
 	@test -f docs/foundation-migration.md
 	@test -f docs/roadmap.md
 	@test -f docs/release-checklist.md
+	@test -f docs/benchmarks/vm-perf-baseline.json
+	@test -f docs/rfcs/RFC-0001-acceleration-feature-gating.md
 	@echo "docs-check: ok"
 
 build-check: $(VM_BIN) $(VM_C_API_LIB) $(VM_C_API_SHARED)

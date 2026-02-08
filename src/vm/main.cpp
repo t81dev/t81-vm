@@ -41,7 +41,7 @@ std::string canonical_passthrough(const std::string& in) {
 }
 
 void usage() {
-  std::cerr << "usage: t81vm [--trace] [--snapshot] <program.t81vm|program.tisc.json>\n";
+  std::cerr << "usage: t81vm [--trace] [--snapshot] [--max-steps N] <program.t81vm|program.tisc.json>\n";
 }
 
 }  // namespace
@@ -69,13 +69,31 @@ int main(int argc, char** argv) {
 
   bool emit_trace = false;
   bool emit_snapshot = false;
+  std::size_t max_steps = 100000;
   std::string program_path;
 
-  for (const auto& arg : args) {
+  for (std::size_t i = 0; i < args.size(); ++i) {
+    const auto& arg = args[i];
     if (arg == "--trace") {
       emit_trace = true;
     } else if (arg == "--snapshot") {
       emit_snapshot = true;
+    } else if (arg == "--max-steps") {
+      if (i + 1 >= args.size()) {
+        usage();
+        return 2;
+      }
+      const auto& raw = args[++i];
+      try {
+        max_steps = static_cast<std::size_t>(std::stoull(raw));
+      } catch (...) {
+        usage();
+        return 2;
+      }
+      if (max_steps == 0) {
+        usage();
+        return 2;
+      }
     } else if (!arg.empty() && arg[0] == '-') {
       usage();
       return 2;
@@ -105,7 +123,7 @@ int main(int argc, char** argv) {
 
   auto vm = t81::vm::make_interpreter_vm();
   vm->load_program(loaded.program);
-  auto res = vm->run_to_halt();
+  auto res = vm->run_to_halt(max_steps);
 
   if (emit_trace) {
     print_trace(vm->state());

@@ -5,6 +5,7 @@ Deterministic conformance suites for T81VM.
 Current suites:
 
 - `tests/cpp/*_test.cpp`: VM behavior and trap regression tests.
+- `tests/cpp/vm_loader_fuzz_smoke_test.cpp`: deterministic randomized loader/step smoke coverage.
 - `tests/harness/harness.py`: replay-hash determinism and fault-vector checks.
 
 Highlighted VM migration suites:
@@ -19,5 +20,4 @@ Highlighted VM migration suites:
 Planned expansions:
 
 - richer bytecode decode/validation fixtures
-- trap payload schema checks
-- trace write-delta schema checks
+- tensor/axion edge-case fixture growth

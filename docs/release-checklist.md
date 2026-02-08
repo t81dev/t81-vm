@@ -27,9 +27,10 @@ Use this checklist whenever changes touch:
    - `t81-roadmap/MIGRATION_DASHBOARD.md`
    - `t81-docs/docs/runtime-contract.md`
 
-## Runtime-Contract-v0.2 Preparation Notes
+## Runtime-Contract-v0.2 Status
 
-- Planned scope for `runtime-contract-v0.2`:
+- Current status: tagged at `t81-vm` commit `30306b32eea8b7acde1be354ed10d24881989225`.
+- Landed scope:
   - stable trap payload line (`TRAP_PAYLOAD ...`)
   - trace write-delta annotations (`:write=...`)
-- Do not tag `runtime-contract-v0.2` until downstream pinned/floating CI lanes are green against the new baseline commit.
+- Keep pinned/floating downstream lanes green before promoting the next contract tag.

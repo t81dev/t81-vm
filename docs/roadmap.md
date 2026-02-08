@@ -41,8 +41,8 @@ Exit criteria:
 ## Phase 3: Performance and Hardening
 
 - Optimize interpreter dispatch without changing behavior.
-- Expand conformance + fuzz corpus.
-- Introduce benchmark integration with `t81-benchmarks`.
+- Expand conformance + fuzz corpus (including loader fuzz smoke coverage).
+- Introduce benchmark integration with `t81-benchmarks` and CI perf regression floors.
 
 Exit criteria:
 
@@ -53,7 +53,7 @@ Exit criteria:
 
 - Explore compatibility-safe acceleration paths.
 - Evaluate hardware co-targeting with `t81-hardware`.
-- Define long-term feature gating model.
+- Define long-term feature gating model (see `docs/rfcs/RFC-0001-acceleration-feature-gating.md`).
 
 Exit criteria:
 
