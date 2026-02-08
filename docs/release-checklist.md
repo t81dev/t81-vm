@@ -36,7 +36,11 @@ Use this checklist whenever changes touch:
   - trace write-delta annotations (`:write=...`)
 - Keep pinned/floating downstream lanes green before promoting the next contract tag.
 
-## Runtime-Contract-v0.4 Kickoff
+## Runtime-Contract-v0.4 Status
 
+- Current status: pending tag creation in this promotion cycle.
 - Tracking RFC: `docs/rfcs/RFC-0002-runtime-contract-v0.4-scope.md`
-- Initial objective: make execution-mode parity evidence machine-readable and contract-enforced.
+- Landed scope:
+  - machine-readable execution-mode parity evidence metadata in `docs/contracts/vm-compatibility.json`
+  - parity evidence generation artifact: `build/mode-parity/parity-evidence.json`
+  - CI artifact publication and validation of parity evidence metadata/artifact consistency
