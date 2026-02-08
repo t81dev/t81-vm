@@ -26,6 +26,7 @@ canary-check:
 
 docs-check:
 	@test -f README.md
+	@test -f CHANGELOG.md
 	@test -f SPEC.md
 	@test -f CONTRIBUTING.md
 	@test -f docs/architecture.md
