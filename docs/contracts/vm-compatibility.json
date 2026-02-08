@@ -1,0 +1,72 @@
+{
+  "contract_version": "2026-02-08",
+  "runtime_owner": "t81-vm",
+  "accepted_program_formats": [
+    {
+      "name": "TextV1",
+      "file_extensions": [".t81vm", ".t81"],
+      "status": "accepted"
+    },
+    {
+      "name": "TiscJsonV1",
+      "file_extensions": [".tisc.json", ".json"],
+      "status": "accepted"
+    }
+  ],
+  "state_hash": {
+    "name": "fnv1a64-v1",
+    "summary_line": "STATE_HASH 0x..."
+  },
+  "trace_contract": {
+    "format_version": "trace-v1",
+    "entry_shape": "pc:opcode[:trap=TrapName]"
+  },
+  "trap_registry": [
+    "None",
+    "DecodeFault",
+    "TypeFault",
+    "BoundsFault",
+    "StackFault",
+    "DivisionFault",
+    "SecurityFault",
+    "ShapeFault",
+    "TrapInstruction"
+  ],
+  "supported_opcodes": [
+    "Nop",
+    "Halt",
+    "LoadImm",
+    "Load",
+    "Store",
+    "Add",
+    "Sub",
+    "Mul",
+    "Div",
+    "Mod",
+    "Jump",
+    "JumpIfZero",
+    "Mov",
+    "Inc",
+    "Dec",
+    "Cmp",
+    "Push",
+    "Pop",
+    "JumpIfNotZero",
+    "Call",
+    "Ret",
+    "Trap",
+    "Neg",
+    "JumpIfNegative",
+    "JumpIfPositive",
+    "StackAlloc",
+    "StackFree",
+    "HeapAlloc",
+    "HeapFree"
+  ],
+  "host_abi": {
+    "name": "t81vm-c-api",
+    "header": "include/t81/vm/c_api.h",
+    "library": "build/libt81vm_capi.{dylib|so|a}",
+    "version": "0.1.0"
+  }
+}

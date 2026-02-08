@@ -27,7 +27,7 @@ int main() {
 
   t81::tisc::Insn load_bad{t81::tisc::Opcode::Load, 0, 9999, 0};
   auto trap_bad_load = run_expected_trap({load_bad, halt});
-  assert(trap_bad_load == t81::vm::Trap::DecodeFault);
+  assert(trap_bad_load == t81::vm::Trap::BoundsFault);
 
   return 0;
 }

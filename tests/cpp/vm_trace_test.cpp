@@ -25,7 +25,7 @@ int main() {
     if (!r2.has_value()) break;
   }
 
-  assert(r2.error() == vm::Trap::DecodeFault);
+  assert(r2.error() == vm::Trap::BoundsFault);
   assert(!vm->state().trace.empty());
   auto last = vm->state().trace.back();
   assert(last.trap.has_value());

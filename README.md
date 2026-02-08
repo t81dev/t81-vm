@@ -27,6 +27,8 @@ See `docs/ecosystem-map.md` for interface-level detail.
 - `SPEC.md` - normative VM contract and deterministic execution rules
 - `docs/architecture.md` - runtime architecture and subsystem boundaries
 - `docs/ecosystem-map.md` - cross-repo artifact and dependency mapping
+- `docs/runtime-ownership.md` - runtime ownership freeze and boundary rules
+- `docs/contracts/vm-compatibility.json` - machine-readable compatibility contract
 - `docs/roadmap.md` - phased delivery plan
 - `docs/foundation-migration.md` - targeted migration plan from `t81-foundation`
 - `src/vm/` - implementation entrypoint for the HanoiVM runtime
@@ -60,7 +62,7 @@ Accepted input formats are defined in `SPEC.md` (`Text V1` and `TISC JSON V1`).
 1. Freeze bytecode decoding and validation rules.
 2. Implement single-thread deterministic interpreter loop.
 3. Ship golden conformance vectors and replay tests.
-4. Add host ABI boundaries for `t81-python` integration.
+4. Stabilize host ABI boundaries for `t81-python` integration.
 
 ## Related Repositories
 

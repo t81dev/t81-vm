@@ -29,9 +29,30 @@ std::optional<t81::tisc::Opcode> opcode_from_string(const std::string& raw) {
   if (s == "LOADIMM") return Opcode::LoadImm;
   if (s == "LOAD") return Opcode::Load;
   if (s == "STORE") return Opcode::Store;
+  if (s == "ADD") return Opcode::Add;
+  if (s == "SUB") return Opcode::Sub;
+  if (s == "MUL") return Opcode::Mul;
   if (s == "DIV") return Opcode::Div;
   if (s == "MOD") return Opcode::Mod;
   if (s == "JUMP" || s == "JMP") return Opcode::Jump;
+  if (s == "JUMPIFZERO" || s == "JZ") return Opcode::JumpIfZero;
+  if (s == "JUMPIFNOTZERO" || s == "JNZ") return Opcode::JumpIfNotZero;
+  if (s == "JUMPIFNEGATIVE" || s == "JN") return Opcode::JumpIfNegative;
+  if (s == "JUMPIFPOSITIVE" || s == "JP") return Opcode::JumpIfPositive;
+  if (s == "MOV") return Opcode::Mov;
+  if (s == "INC") return Opcode::Inc;
+  if (s == "DEC") return Opcode::Dec;
+  if (s == "CMP") return Opcode::Cmp;
+  if (s == "PUSH") return Opcode::Push;
+  if (s == "POP") return Opcode::Pop;
+  if (s == "CALL") return Opcode::Call;
+  if (s == "RET") return Opcode::Ret;
+  if (s == "TRAP") return Opcode::Trap;
+  if (s == "NEG") return Opcode::Neg;
+  if (s == "STACKALLOC") return Opcode::StackAlloc;
+  if (s == "STACKFREE") return Opcode::StackFree;
+  if (s == "HEAPALLOC") return Opcode::HeapAlloc;
+  if (s == "HEAPFREE") return Opcode::HeapFree;
   return std::nullopt;
 }
 

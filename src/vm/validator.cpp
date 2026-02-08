@@ -6,7 +6,7 @@ namespace t81::vm {
 
 namespace {
 
-constexpr std::size_t kRegisterCount = 16;
+constexpr std::size_t kRegisterCount = 243;
 
 bool valid_reg(std::int64_t idx) {
   return idx >= 0 && static_cast<std::size_t>(idx) < kRegisterCount;
@@ -20,9 +20,30 @@ bool valid_opcode(t81::tisc::Opcode opcode) {
     case Opcode::LoadImm:
     case Opcode::Load:
     case Opcode::Store:
+    case Opcode::Add:
+    case Opcode::Sub:
+    case Opcode::Mul:
     case Opcode::Div:
     case Opcode::Mod:
     case Opcode::Jump:
+    case Opcode::JumpIfZero:
+    case Opcode::Mov:
+    case Opcode::Inc:
+    case Opcode::Dec:
+    case Opcode::Cmp:
+    case Opcode::Push:
+    case Opcode::Pop:
+    case Opcode::JumpIfNotZero:
+    case Opcode::Call:
+    case Opcode::Ret:
+    case Opcode::Trap:
+    case Opcode::Neg:
+    case Opcode::JumpIfNegative:
+    case Opcode::JumpIfPositive:
+    case Opcode::StackAlloc:
+    case Opcode::StackFree:
+    case Opcode::HeapAlloc:
+    case Opcode::HeapFree:
       return true;
   }
   return false;
@@ -53,17 +74,50 @@ std::optional<Trap> validate_program(const t81::tisc::Program& program) {
         break;
       case t81::tisc::Opcode::Div:
       case t81::tisc::Opcode::Mod:
+      case t81::tisc::Opcode::Add:
+      case t81::tisc::Opcode::Sub:
+      case t81::tisc::Opcode::Mul:
         if (!valid_reg(insn.a) || !valid_reg(insn.b) || !valid_reg(insn.c)) {
           return Trap::DecodeFault;
         }
         break;
+      case t81::tisc::Opcode::Cmp:
+        if (!valid_reg(insn.a) || !valid_reg(insn.b)) {
+          return Trap::DecodeFault;
+        }
+        break;
+      case t81::tisc::Opcode::Mov:
+        if (!valid_reg(insn.a) || !valid_reg(insn.b)) {
+          return Trap::DecodeFault;
+        }
+        break;
+      case t81::tisc::Opcode::Inc:
+      case t81::tisc::Opcode::Dec:
+      case t81::tisc::Opcode::Push:
+      case t81::tisc::Opcode::Pop:
+      case t81::tisc::Opcode::Neg:
+      case t81::tisc::Opcode::Call:
+      case t81::tisc::Opcode::StackAlloc:
+      case t81::tisc::Opcode::StackFree:
+      case t81::tisc::Opcode::HeapAlloc:
+      case t81::tisc::Opcode::HeapFree:
+        if (!valid_reg(insn.a)) {
+          return Trap::DecodeFault;
+        }
+        break;
       case t81::tisc::Opcode::Jump:
+      case t81::tisc::Opcode::JumpIfZero:
+      case t81::tisc::Opcode::JumpIfNotZero:
+      case t81::tisc::Opcode::JumpIfNegative:
+      case t81::tisc::Opcode::JumpIfPositive:
         if (insn.a < 0 || static_cast<std::size_t>(insn.a) >= program.insns.size()) {
           return Trap::DecodeFault;
         }
         break;
       case t81::tisc::Opcode::Nop:
       case t81::tisc::Opcode::Halt:
+      case t81::tisc::Opcode::Ret:
+      case t81::tisc::Opcode::Trap:
         break;
     }
   }

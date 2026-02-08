@@ -28,11 +28,11 @@ This document describes how `t81-vm` relates to repositories under <https://gith
 
 ## Artifact Contracts
 
-`t81-vm` should publish:
+`t81-vm` publishes:
 
-- Bytecode compatibility matrix (`spec_version` support).
-- Conformance vector bundle (pass/fail + canonical hashes).
-- Stable trap code registry.
-- Host ABI signature and lifecycle contract.
+- Bytecode compatibility contract in `docs/contracts/vm-compatibility.json`.
+- Conformance vector bundle in `tests/harness/test_vectors/`.
+- Stable trap code registry in `include/t81/vm/traps.hpp`.
+- Host ABI signature in `include/t81/vm/c_api.h`.
 
 These outputs are expected inputs for documentation, language bindings, and benchmark suites.

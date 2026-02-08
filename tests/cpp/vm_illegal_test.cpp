@@ -6,7 +6,7 @@ using namespace t81;
 
 int main() {
   tisc::Program bad_reg;
-  bad_reg.insns.push_back({tisc::Opcode::LoadImm, 99, 1, 0});
+  bad_reg.insns.push_back({tisc::Opcode::LoadImm, 999, 1, 0});
   auto vm = vm::make_interpreter_vm();
   vm->load_program(bad_reg);
   auto r = vm->step();
