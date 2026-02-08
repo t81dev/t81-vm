@@ -1,0 +1,4 @@
+# bounds fault
+LOADIMM 0 7 0
+STORE 4096 0 0
+HALT 0 0 0

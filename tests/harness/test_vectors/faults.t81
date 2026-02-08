@@ -1,0 +1,5 @@
+# division fault
+LOADIMM 0 10 0
+LOADIMM 1 0 0
+DIV 2 0 1
+HALT 0 0 0
