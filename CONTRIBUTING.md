@@ -19,6 +19,7 @@
 - Spec alignment notes.
 - Conformance test additions when behavior changes.
 - No undocumented trap code additions.
+- If opcode surface (`include/t81/tisc/opcodes.hpp`) or VM ABI headers (`include/t81/vm/c_api.h`, `include/t81/vm/vm.hpp`) change, update both `docs/contracts/vm-compatibility.json` and `CHANGELOG.md`.
 
 ## Commit Guidance
 
