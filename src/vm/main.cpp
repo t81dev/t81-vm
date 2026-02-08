@@ -1,61 +1,15 @@
 #include <cctype>
 #include <cstdint>
-#include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <vector>
 
-#include "t81/tisc/program.hpp"
+#include "t81/vm/program_io.hpp"
 #include "t81/vm/summary.hpp"
 #include "t81/vm/traps.hpp"
 #include "t81/vm/vm.hpp"
 
 namespace {
-
-bool parse_program(const std::string& path, t81::tisc::Program* out) {
-  std::ifstream in(path);
-  if (!in) {
-    return false;
-  }
-
-  std::string line;
-  while (std::getline(in, line)) {
-    if (line.empty() || line[0] == '#') {
-      continue;
-    }
-    std::istringstream iss(line);
-    std::string op;
-    iss >> op;
-    if (op == "POLICY") {
-      std::string rest;
-      std::getline(iss, rest);
-      out->axion_policy_text = rest;
-      continue;
-    }
-
-    std::int64_t a = 0;
-    std::int64_t b = 0;
-    std::int64_t c = 0;
-    iss >> a >> b >> c;
-
-    using t81::tisc::Opcode;
-    Opcode opcode = Opcode::Nop;
-    if (op == "NOP") opcode = Opcode::Nop;
-    else if (op == "HALT") opcode = Opcode::Halt;
-    else if (op == "LOADIMM") opcode = Opcode::LoadImm;
-    else if (op == "LOAD") opcode = Opcode::Load;
-    else if (op == "STORE") opcode = Opcode::Store;
-    else if (op == "DIV") opcode = Opcode::Div;
-    else if (op == "MOD") opcode = Opcode::Mod;
-    else if (op == "JUMP") opcode = Opcode::Jump;
-    else return false;
-
-    out->insns.push_back({opcode, a, b, c});
-  }
-
-  return true;
-}
 
 void print_trace(const t81::vm::State& s) {
   for (const auto& e : s.trace) {
@@ -84,7 +38,7 @@ std::string canonical_passthrough(const std::string& in) {
 }
 
 void usage() {
-  std::cerr << "usage: t81vm [--trace] [--snapshot] <program.t81>\n";
+  std::cerr << "usage: t81vm [--trace] [--snapshot] <program.t81vm|program.tisc.json>\n";
 }
 
 }  // namespace
@@ -140,14 +94,14 @@ int main(int argc, char** argv) {
     emit_trace = true;
   }
 
-  t81::tisc::Program p;
-  if (!parse_program(program_path, &p)) {
-    std::cerr << "FAULT ParseError\n";
+  const auto loaded = t81::vm::load_program_from_file(program_path);
+  if (!loaded.ok) {
+    std::cerr << "FAULT ParseError: " << loaded.error << "\n";
     return 1;
   }
 
   auto vm = t81::vm::make_interpreter_vm();
-  vm->load_program(p);
+  vm->load_program(loaded.program);
   auto res = vm->run_to_halt();
 
   if (emit_trace) {

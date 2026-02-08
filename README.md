@@ -46,6 +46,15 @@ CLI example:
 build/t81vm --trace --snapshot tests/harness/test_vectors/arithmetic.t81
 ```
 
+Runnable example artifacts:
+
+```bash
+build/t81vm --trace --snapshot examples/runnable/arithmetic.t81vm
+build/t81vm --trace --snapshot examples/runnable/arithmetic.tisc.json
+```
+
+Accepted input formats are defined in `SPEC.md` (`Text V1` and `TISC JSON V1`).
+
 ## Near-Term Priorities
 
 1. Freeze bytecode decoding and validation rules.

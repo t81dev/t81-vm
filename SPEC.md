@@ -62,6 +62,54 @@ Execution lifecycle is:
 4. Execute until halt or trap.
 5. Emit canonical summary.
 
+## 3A. Program Artifact Contract
+
+`t81-vm` currently accepts two stable input artifacts:
+
+1. `Text V1` (`*.t81vm`)
+2. `TISC JSON V1` (`*.tisc.json`)
+
+Both map into the same in-memory `t81::tisc::Program` model.
+
+### 3A.1 Text V1 (`*.t81vm`)
+
+Grammar:
+
+```text
+line := comment | policy | insn
+comment := "#" <text>
+policy := "POLICY" <policy-text>
+insn := <OPCODE> <a:int> <b:int> <c:int>
+```
+
+Supported opcode identifiers (v1): `NOP`, `HALT`, `LOADIMM`, `LOAD`, `STORE`, `DIV`, `MOD`, `JUMP` (`JMP` alias accepted).
+
+### 3A.2 TISC JSON V1 (`*.tisc.json`)
+
+Object shape:
+
+```json
+{
+  "format_version": "tisc-json-v1",
+  "axion_policy_text": "(policy ...)",
+  "insns": [
+    {"opcode": "LoadImm", "a": 0, "b": 10, "c": 0},
+    {"opcode": "Halt", "a": 0, "b": 0, "c": 0}
+  ]
+}
+```
+
+Rules:
+
+- `insns` is required and non-empty.
+- each instruction requires `opcode`, `a`, `b`, `c`.
+- numeric fields are signed integers.
+- `opcode` names are case/underscore/hyphen insensitive during parse.
+
+### 3A.3 Compatibility Intent
+
+`TISC JSON V1` is the current bridge target for future `t81-lang emit-bytecode` integration until a canonical binary container is published.
+
 ## 4. Concurrency Model
 
 Concurrency is optional. If implemented, it MUST be deterministic.

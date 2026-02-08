@@ -1,0 +1,10 @@
+{
+  "format_version": "tisc-json-v1",
+  "axion_policy_text": "(policy (tier 1))",
+  "insns": [
+    {"opcode": "LoadImm", "a": 0, "b": 12, "c": 0},
+    {"opcode": "LoadImm", "a": 1, "b": 5, "c": 0},
+    {"opcode": "Mod", "a": 2, "b": 0, "c": 1},
+    {"opcode": "Halt", "a": 0, "b": 0, "c": 0}
+  ]
+}
