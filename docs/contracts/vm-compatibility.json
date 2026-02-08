@@ -34,6 +34,21 @@
       "parity_requirement": "STATE_HASH and trap semantics must match interpreter mode"
     }
   ],
+  "execution_mode_parity_evidence": {
+    "baseline_mode": "interpreter",
+    "candidate_modes": [
+      "accelerated-preview"
+    ],
+    "required_equal_signals": [
+      "STATE_HASH",
+      "TRAP_CLASS",
+      "TRAP_PAYLOAD"
+    ],
+    "canonical_vectors": [
+      "tests/harness/test_vectors/arithmetic.t81",
+      "tests/harness/test_vectors/faults.t81"
+    ]
+  },
   "trap_payload_contract": {
     "format_version": "trap-payload-v1",
     "summary_line": "TRAP_PAYLOAD trap=TrapName pc=N opcode=N a=N b=N c=N segment=segment_name detail=\"...\""

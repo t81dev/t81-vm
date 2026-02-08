@@ -14,6 +14,7 @@ REQUIRED_TOP_LEVEL = {
     "state_hash",
     "trace_contract",
     "execution_modes",
+    "execution_mode_parity_evidence",
     "trap_payload_contract",
     "trap_registry",
     "supported_opcodes",
@@ -23,6 +24,11 @@ REQUIRED_TOP_LEVEL = {
 REQUIRED_FORMATS = {"TextV1", "TiscJsonV1"}
 REQUIRED_TRAPS = {"DecodeFault", "TypeFault", "DivisionFault", "TrapInstruction"}
 REQUIRED_EXECUTION_MODES = {"interpreter", "accelerated-preview"}
+REQUIRED_PARITY_SIGNALS = {"STATE_HASH", "TRAP_CLASS", "TRAP_PAYLOAD"}
+REQUIRED_PARITY_VECTORS = {
+    "tests/harness/test_vectors/arithmetic.t81",
+    "tests/harness/test_vectors/faults.t81",
+}
 REQUIRED_OPCODES = {
     "Nop",
     "Halt",
@@ -139,6 +145,48 @@ def main() -> None:
     missing_modes = sorted(REQUIRED_EXECUTION_MODES - mode_names)
     if missing_modes:
         raise SystemExit(f"Missing required execution modes: {', '.join(missing_modes)}")
+
+    parity_evidence = contract.get("execution_mode_parity_evidence", {})
+    baseline_mode = str(parity_evidence.get("baseline_mode", "")).strip()
+    if baseline_mode != "interpreter":
+        raise SystemExit("execution_mode_parity_evidence.baseline_mode must be 'interpreter'")
+
+    candidate_modes = {
+        str(mode).strip()
+        for mode in parity_evidence.get("candidate_modes", [])
+        if str(mode).strip()
+    }
+    if "accelerated-preview" not in candidate_modes:
+        raise SystemExit(
+            "execution_mode_parity_evidence.candidate_modes must include 'accelerated-preview'"
+        )
+
+    parity_signals = {
+        str(signal).strip()
+        for signal in parity_evidence.get("required_equal_signals", [])
+        if str(signal).strip()
+    }
+    missing_signals = sorted(REQUIRED_PARITY_SIGNALS - parity_signals)
+    if missing_signals:
+        raise SystemExit(
+            "execution_mode_parity_evidence missing required_equal_signals: "
+            + ", ".join(missing_signals)
+        )
+
+    parity_vectors = {
+        str(vector).strip()
+        for vector in parity_evidence.get("canonical_vectors", [])
+        if str(vector).strip()
+    }
+    missing_vectors = sorted(REQUIRED_PARITY_VECTORS - parity_vectors)
+    if missing_vectors:
+        raise SystemExit(
+            "execution_mode_parity_evidence missing canonical_vectors: "
+            + ", ".join(missing_vectors)
+        )
+    for vector in sorted(parity_vectors):
+        if not (root / vector).exists():
+            raise SystemExit(f"execution_mode_parity_evidence vector not found: {vector}")
 
     trap_payload_contract = contract.get("trap_payload_contract", {})
     if not str(trap_payload_contract.get("format_version", "")).strip():
