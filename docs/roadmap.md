@@ -26,10 +26,12 @@ Exit criteria:
 
 - Expose stable embedding API for `t81-python`.
 - Add execution traces and trap diagnostics.
+- Stabilize `TRAP_PAYLOAD` summary schema and trace write-delta annotations.
 - Add package-level bytecode compatibility checks.
 - Add cross-repo compatibility CI gate with `t81-lang`.
 - Add ecosystem contract fan-out CI (`ecosystem-contract.yml`) across `t81-lang`, `t81-python`, and `t81-docs`.
 - Add end-to-end ecosystem canary (`t81-lang` -> `t81-vm` -> `t81-python`).
+- Publish runtime contract release checklist for `runtime-contract-v0.2` preparation.
 
 Exit criteria:
 

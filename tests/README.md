@@ -20,3 +20,4 @@ Planned expansions:
 
 - richer bytecode decode/validation fixtures
 - trap payload schema checks
+- trace write-delta schema checks

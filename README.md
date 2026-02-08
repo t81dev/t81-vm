@@ -33,6 +33,7 @@ See `docs/ecosystem-map.md` for interface-level detail.
 - `docs/parity-backlog.md` - explicit remaining parity delta vs `t81-foundation`
 - `docs/roadmap.md` - phased delivery plan
 - `docs/foundation-migration.md` - targeted migration plan from `t81-foundation`
+- `docs/release-checklist.md` - contract/ABI release discipline for runtime tags
 - `src/vm/` - implementation entrypoint for the HanoiVM runtime
 - `tests/` - deterministic conformance and regression suites
 

@@ -27,8 +27,31 @@ int main() {
 
   assert(r2.error() == vm::Trap::BoundsFault);
   assert(!vm->state().trace.empty());
+  bool saw_loadimm_write = false;
+  for (const auto& entry : vm->state().trace) {
+    if (entry.opcode == tisc::Opcode::LoadImm && entry.write_reg.has_value()) {
+      assert(*entry.write_reg == 0);
+      assert(entry.write_value.has_value());
+      assert(*entry.write_value == 1);
+      assert(entry.write_tag.has_value());
+      assert(*entry.write_tag == vm::ValueTag::Int);
+      saw_loadimm_write = true;
+      break;
+    }
+  }
+  assert(saw_loadimm_write);
   auto last = vm->state().trace.back();
   assert(last.trap.has_value());
+  assert(vm->state().last_trap_payload.has_value());
+  const auto& payload = *vm->state().last_trap_payload;
+  assert(payload.trap == vm::Trap::BoundsFault);
+  assert(payload.pc == 81);
+  assert(payload.opcode == tisc::Opcode::Load);
+  assert(payload.a == 1);
+  assert(payload.b == 9999);
+  assert(payload.c == 0);
+  assert(payload.segment == vm::MemorySegmentKind::Unknown);
+  assert(payload.detail == "memory load");
   assert(vm->state().policy.has_value());
   assert(vm->state().policy->tier == 2);
   assert(vm->state().gc_cycles > 0);

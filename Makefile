@@ -35,6 +35,7 @@ docs-check:
 	@test -f docs/contracts/vm-compatibility.json
 	@test -f docs/foundation-migration.md
 	@test -f docs/roadmap.md
+	@test -f docs/release-checklist.md
 	@echo "docs-check: ok"
 
 build-check: $(VM_BIN) $(VM_C_API_LIB) $(VM_C_API_SHARED)

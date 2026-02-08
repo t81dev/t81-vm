@@ -13,6 +13,7 @@ REQUIRED_TOP_LEVEL = {
     "accepted_program_formats",
     "state_hash",
     "trace_contract",
+    "trap_payload_contract",
     "trap_registry",
     "supported_opcodes",
     "host_abi",
@@ -130,6 +131,12 @@ def main() -> None:
     trace_contract = contract.get("trace_contract", {})
     if not str(trace_contract.get("format_version", "")).strip():
         raise SystemExit("trace_contract.format_version must be non-empty")
+
+    trap_payload_contract = contract.get("trap_payload_contract", {})
+    if not str(trap_payload_contract.get("format_version", "")).strip():
+        raise SystemExit("trap_payload_contract.format_version must be non-empty")
+    if "TRAP_PAYLOAD" not in str(trap_payload_contract.get("summary_line", "")):
+        raise SystemExit("trap_payload_contract.summary_line must describe TRAP_PAYLOAD output")
 
     state_hash = contract.get("state_hash", {})
     if not str(state_hash.get("name", "")).strip():

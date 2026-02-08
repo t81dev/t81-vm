@@ -13,12 +13,6 @@
 
 namespace t81::vm {
 
-struct TraceEntry {
-  std::size_t pc;
-  t81::tisc::Opcode opcode;
-  std::optional<Trap> trap;
-};
-
 enum class ValueTag : std::uint8_t {
   Int = 0,
   TensorHandle,
@@ -27,6 +21,35 @@ enum class ValueTag : std::uint8_t {
   OptionHandle,
   ResultHandle,
   EnumHandle,
+};
+
+inline const char* to_string(ValueTag tag) {
+  switch (tag) {
+    case ValueTag::Int:
+      return "Int";
+    case ValueTag::TensorHandle:
+      return "TensorHandle";
+    case ValueTag::ShapeHandle:
+      return "ShapeHandle";
+    case ValueTag::WeightsTensorHandle:
+      return "WeightsTensorHandle";
+    case ValueTag::OptionHandle:
+      return "OptionHandle";
+    case ValueTag::ResultHandle:
+      return "ResultHandle";
+    case ValueTag::EnumHandle:
+      return "EnumHandle";
+  }
+  return "UnknownTag";
+}
+
+struct TraceEntry {
+  std::size_t pc;
+  t81::tisc::Opcode opcode;
+  std::optional<std::size_t> write_reg;
+  std::optional<std::int64_t> write_value;
+  std::optional<ValueTag> write_tag;
+  std::optional<Trap> trap;
 };
 
 struct Flags {
@@ -113,6 +136,17 @@ struct TensorValue {
   std::vector<std::int64_t> data;
 };
 
+struct TrapPayload {
+  Trap trap = Trap::None;
+  std::size_t pc = 0;
+  t81::tisc::Opcode opcode = t81::tisc::Opcode::Nop;
+  std::int64_t a = 0;
+  std::int64_t b = 0;
+  std::int64_t c = 0;
+  MemorySegmentKind segment = MemorySegmentKind::Unknown;
+  std::string detail;
+};
+
 struct State {
   std::size_t pc = 0;
   bool halted = false;
@@ -132,6 +166,7 @@ struct State {
   std::vector<EnumValue> enum_pool;
   std::vector<TensorValue> tensor_pool;
   std::vector<std::vector<std::int64_t>> shape_pool;
+  std::optional<TrapPayload> last_trap_payload;
   std::optional<Policy> policy;
   std::size_t gc_cycles = 0;
 };

@@ -14,6 +14,9 @@ namespace {
 void print_trace(const t81::vm::State& s) {
   for (const auto& e : s.trace) {
     std::cout << e.pc << ":" << static_cast<int>(e.opcode);
+    if (e.write_reg.has_value() && e.write_value.has_value() && e.write_tag.has_value()) {
+      std::cout << ":write=r" << *e.write_reg << "=" << *e.write_value << ":" << t81::vm::to_string(*e.write_tag);
+    }
     if (e.trap.has_value()) {
       std::cout << ":trap=" << t81::vm::to_string(*e.trap);
     }
@@ -113,6 +116,10 @@ int main(int argc, char** argv) {
 
   if (!res.has_value()) {
     std::cerr << "FAULT " << t81::vm::to_string(res.error()) << "\n";
+    const auto payload_line = t81::vm::trap_payload_summary_line(vm->state());
+    if (!payload_line.empty()) {
+      std::cerr << payload_line << "\n";
+    }
     return 1;
   }
 

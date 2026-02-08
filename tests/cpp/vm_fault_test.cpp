@@ -1,8 +1,10 @@
 #include "t81/tisc/opcodes.hpp"
 #include "t81/tisc/program.hpp"
+#include "t81/vm/summary.hpp"
 #include "t81/vm/vm.hpp"
 
 #include <cassert>
+#include <string>
 #include <vector>
 
 namespace {
@@ -24,6 +26,17 @@ int main() {
   t81::tisc::Insn halt{t81::tisc::Opcode::Halt, 0, 0, 0};
   auto trap_div_zero = run_expected_trap({load_ten, load_zero, div, halt});
   assert(trap_div_zero == t81::vm::Trap::DivisionFault);
+  {
+    t81::tisc::Program p;
+    p.insns = {load_ten, load_zero, div, halt};
+    auto vm = t81::vm::make_interpreter_vm();
+    vm->load_program(p);
+    const auto res = vm->run_to_halt();
+    assert(!res.has_value());
+    const auto summary = t81::vm::snapshot_summary(vm->state());
+    assert(summary.find("TRAP_PAYLOAD trap=DivisionFault") != std::string::npos);
+    assert(summary.find("detail=\"division by zero\"") != std::string::npos);
+  }
 
   t81::tisc::Insn load_bad{t81::tisc::Opcode::Load, 0, 9999, 0};
   auto trap_bad_load = run_expected_trap({load_bad, halt});

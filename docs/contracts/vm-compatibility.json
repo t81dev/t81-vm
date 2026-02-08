@@ -1,5 +1,5 @@
 {
-  "contract_version": "2026-02-08",
+  "contract_version": "2026-02-08-v2",
   "runtime_owner": "t81-vm",
   "accepted_program_formats": [
     {
@@ -19,7 +19,11 @@
   },
   "trace_contract": {
     "format_version": "trace-v1",
-    "entry_shape": "pc:opcode[:trap=TrapName]"
+    "entry_shape": "pc:opcode[:write=rN:value:ValueTag][:trap=TrapName]"
+  },
+  "trap_payload_contract": {
+    "format_version": "trap-payload-v1",
+    "summary_line": "TRAP_PAYLOAD trap=TrapName pc=N opcode=N a=N b=N c=N segment=segment_name detail=\"...\""
   },
   "trap_registry": [
     "None",
