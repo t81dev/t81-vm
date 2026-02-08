@@ -29,6 +29,7 @@ See `docs/ecosystem-map.md` for interface-level detail.
 - `docs/ecosystem-map.md` - cross-repo artifact and dependency mapping
 - `docs/runtime-ownership.md` - runtime ownership freeze and boundary rules
 - `docs/contracts/vm-compatibility.json` - machine-readable compatibility contract
+- `contracts/runtime-contract.json` - ecosystem-facing contract marker used by cross-repo CI
 - `scripts/check-vm-contract.py` - contract artifact schema/discipline validator
 - `docs/parity-backlog.md` - explicit remaining parity delta vs `t81-foundation`
 - `docs/roadmap.md` - phased delivery plan
@@ -62,6 +63,7 @@ make perf-check
 Latest local report path: `build/perf/runtime-bench-report.json`.
 
 Cross-repo contract fan-out CI workflow: `.github/workflows/ecosystem-contract.yml`.
+Cross-repo compatibility matrix workflow: `.github/workflows/ecosystem-compat-matrix.yml`.
 
 CLI example:
 

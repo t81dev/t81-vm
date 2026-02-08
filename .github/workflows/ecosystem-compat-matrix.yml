@@ -1,0 +1,106 @@
+name: ecosystem-compat-matrix
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "55 4 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  marker-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - repo: t81-lang
+          - repo: t81-python
+          - repo: t81-examples
+          - repo: ternary-tools
+          - repo: ternary-pager
+    steps:
+      - name: Checkout t81-vm
+        uses: actions/checkout@v4
+        with:
+          path: t81-vm
+
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/${{ matrix.repo }}
+          path: ${{ matrix.repo }}
+          ref: main
+
+      - name: Validate contract marker alignment
+        run: |
+          python3 t81-vm/scripts/check-ecosystem-contract-markers.py \
+            --vm-dir t81-vm \
+            --repo-dir ${{ matrix.repo }} \
+            --repo-name ${{ matrix.repo }}
+
+      - name: Run t81-lang runtime compatibility gate
+        if: matrix.repo == 't81-lang'
+        run: python3 scripts/check-vm-compat.py
+        working-directory: t81-lang
+        env:
+          VM_COMPAT_LANE: floating
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm
+
+      - name: Run t81-python runtime compatibility gate
+        if: matrix.repo == 't81-python'
+        run: python3 scripts/check-vm-contract.py
+        working-directory: t81-python
+        env:
+          VM_COMPAT_LANE: floating
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm
+
+  examples-e2e-deterministic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout t81-vm
+        uses: actions/checkout@v4
+        with:
+          path: t81-vm
+
+      - name: Checkout t81-lang
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-lang
+          path: t81-lang
+          ref: main
+
+      - name: Checkout t81-python
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-python
+          path: t81-python
+          ref: main
+
+      - name: Checkout t81-examples
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-examples
+          path: t81-examples
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install t81-python for bridge smoke
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+        working-directory: t81-python
+
+      - name: Run deterministic runtime fixture
+        run: ./scripts/run-runtime-v0.4-e2e.sh
+        working-directory: t81-examples
+        env:
+          T81_LANG_DIR: ${{ github.workspace }}/t81-lang
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm
+          T81_PYTHON_DIR: ${{ github.workspace }}/t81-python
