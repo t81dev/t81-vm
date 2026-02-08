@@ -27,9 +27,10 @@ Use this checklist whenever changes touch:
    - `t81-roadmap/MIGRATION_DASHBOARD.md`
    - `t81-docs/docs/runtime-contract.md`
 
-## Runtime-Contract-v0.2 Status
+## Runtime-Contract-v0.3 Status
 
-- Current status: tagged at `t81-vm` commit `30306b32eea8b7acde1be354ed10d24881989225`.
+- Current status: pending tag creation in this promotion cycle.
+- Prior baseline: `runtime-contract-v0.2` tagged at `t81-vm` commit `30306b32eea8b7acde1be354ed10d24881989225`.
 - Landed scope:
   - stable trap payload line (`TRAP_PAYLOAD ...`)
   - trace write-delta annotations (`:write=...`)

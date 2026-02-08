@@ -1,5 +1,5 @@
 {
-  "contract_version": "2026-02-08-v2",
+  "contract_version": "2026-02-08-v3",
   "runtime_owner": "t81-vm",
   "accepted_program_formats": [
     {

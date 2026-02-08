@@ -17,5 +17,6 @@
 - Added loader fuzz smoke coverage (`vm_loader_fuzz_smoke_test`) for hardening.
 - Added preview execution mode plumbing (`--mode accelerated-preview`) with explicit mode parity check (`scripts/check-mode-parity.sh`).
 - Added acceleration feature-gating RFC (`docs/rfcs/RFC-0001-acceleration-feature-gating.md`) and execution-mode contract metadata.
+- Promoted runtime contract baseline preparation to `runtime-contract-v0.3` with `contract_version=2026-02-08-v3` (no host ABI break; `host_abi.version` remains `0.1.0`).
 - Added host C ABI (`include/t81/vm/c_api.h`) and shared/static artifacts.
 - Added cross-repo CI (`.github/workflows/lang-compat.yml`) and ecosystem canary workflow support.
