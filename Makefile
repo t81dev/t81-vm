@@ -57,7 +57,7 @@ $(VM_C_API_LIB): $(VM_SRC) $(VM_C_API_SRC) include/t81/vm/c_api.h include/t81/ti
 
 $(VM_C_API_SHARED): $(VM_SRC) $(VM_C_API_SRC) include/t81/vm/c_api.h include/t81/tisc/opcodes.hpp include/t81/tisc/program.hpp include/t81/vm/loader.hpp include/t81/vm/program_io.hpp include/t81/vm/state.hpp include/t81/vm/summary.hpp include/t81/vm/traps.hpp include/t81/vm/validator.hpp include/t81/vm/vm.hpp
 	@mkdir -p build
-	$(CXX) $(CXXFLAGS) $(SHARED_LDFLAGS) -o $@ $(VM_SRC) $(VM_C_API_SRC)
+	$(CXX) $(CXXFLAGS) -fPIC $(SHARED_LDFLAGS) -o $@ $(VM_SRC) $(VM_C_API_SRC)
 
 build/%: tests/cpp/%.cpp $(VM_SRC) include/t81/tisc/opcodes.hpp include/t81/tisc/program.hpp include/t81/vm/loader.hpp include/t81/vm/program_io.hpp include/t81/vm/state.hpp include/t81/vm/summary.hpp include/t81/vm/traps.hpp include/t81/vm/validator.hpp include/t81/vm/vm.hpp
 	@mkdir -p build
