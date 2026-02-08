@@ -35,6 +35,9 @@
     }
   ],
   "execution_mode_parity_evidence": {
+    "schema_version": "parity-evidence-v1",
+    "artifact_path": "build/mode-parity/parity-evidence.json",
+    "generator": "scripts/check-mode-parity.sh",
     "baseline_mode": "interpreter",
     "candidate_modes": [
       "accelerated-preview"

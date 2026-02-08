@@ -23,8 +23,18 @@ jobs:
           path: build/perf/runtime-bench-report.json
           if-no-files-found: ignore
 
+      - name: Upload mode parity evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vm-mode-parity-evidence
+          path: build/mode-parity/parity-evidence.json
+          if-no-files-found: error
+
       - name: Validate VM contract artifact
         run: python3 scripts/check-vm-contract.py
+        env:
+          REQUIRE_PARITY_ARTIFACT: "1"
 
       - name: Contract discipline
         if: github.event_name == 'pull_request'

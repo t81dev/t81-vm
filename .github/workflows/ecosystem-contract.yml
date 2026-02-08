@@ -33,9 +33,23 @@ jobs:
           repository: t81dev/t81-docs
           path: t81-docs
 
+      - name: Generate mode parity evidence
+        run: make mode-parity-check
+        working-directory: t81-vm
+
       - name: Validate VM contract schema
         run: python3 scripts/check-vm-contract.py
         working-directory: t81-vm
+        env:
+          REQUIRE_PARITY_ARTIFACT: "1"
+
+      - name: Upload mode parity evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vm-mode-parity-evidence-ecosystem
+          path: t81-vm/build/mode-parity/parity-evidence.json
+          if-no-files-found: error
 
       - name: Validate t81-lang compatibility gate
         run: python3 scripts/check-vm-compat.py

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 
@@ -147,6 +148,20 @@ def main() -> None:
         raise SystemExit(f"Missing required execution modes: {', '.join(missing_modes)}")
 
     parity_evidence = contract.get("execution_mode_parity_evidence", {})
+    parity_schema_version = str(parity_evidence.get("schema_version", "")).strip()
+    if parity_schema_version != "parity-evidence-v1":
+        raise SystemExit(
+            "execution_mode_parity_evidence.schema_version must be 'parity-evidence-v1'"
+        )
+
+    parity_artifact_path = str(parity_evidence.get("artifact_path", "")).strip()
+    if not parity_artifact_path:
+        raise SystemExit("execution_mode_parity_evidence.artifact_path must be non-empty")
+
+    parity_generator = str(parity_evidence.get("generator", "")).strip()
+    if not parity_generator:
+        raise SystemExit("execution_mode_parity_evidence.generator must be non-empty")
+
     baseline_mode = str(parity_evidence.get("baseline_mode", "")).strip()
     if baseline_mode != "interpreter":
         raise SystemExit("execution_mode_parity_evidence.baseline_mode must be 'interpreter'")
@@ -187,6 +202,20 @@ def main() -> None:
     for vector in sorted(parity_vectors):
         if not (root / vector).exists():
             raise SystemExit(f"execution_mode_parity_evidence vector not found: {vector}")
+
+    require_artifact = os.environ.get("REQUIRE_PARITY_ARTIFACT", "").strip() == "1"
+    if require_artifact:
+        artifact = root / parity_artifact_path
+        if not artifact.exists():
+            raise SystemExit(
+                "execution_mode_parity_evidence artifact missing: "
+                f"{parity_artifact_path}; run {parity_generator}"
+            )
+        evidence = json.loads(artifact.read_text(encoding="utf-8"))
+        if evidence.get("schema_version") != parity_schema_version:
+            raise SystemExit("parity evidence artifact schema_version mismatch")
+        if evidence.get("contract_version") != contract_version:
+            raise SystemExit("parity evidence artifact contract_version mismatch")
 
     trap_payload_contract = contract.get("trap_payload_contract", {})
     if not str(trap_payload_contract.get("format_version", "")).strip():
