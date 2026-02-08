@@ -67,6 +67,7 @@ CLI example:
 
 ```bash
 build/t81vm --trace --snapshot --max-steps 200000 tests/harness/test_vectors/arithmetic.t81
+build/t81vm --snapshot --mode accelerated-preview tests/harness/test_vectors/arithmetic.t81
 ```
 
 Runnable example artifacts:

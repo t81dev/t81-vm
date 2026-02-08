@@ -21,6 +21,19 @@
     "format_version": "trace-v1",
     "entry_shape": "pc:opcode[:write=rN:value:ValueTag][:trap=TrapName]"
   },
+  "execution_modes": [
+    {
+      "name": "interpreter",
+      "status": "stable",
+      "default": true
+    },
+    {
+      "name": "accelerated-preview",
+      "status": "preview",
+      "default": false,
+      "parity_requirement": "STATE_HASH and trap semantics must match interpreter mode"
+    }
+  ],
   "trap_payload_contract": {
     "format_version": "trap-payload-v1",
     "summary_line": "TRAP_PAYLOAD trap=TrapName pc=N opcode=N a=N b=N c=N segment=segment_name detail=\"...\""

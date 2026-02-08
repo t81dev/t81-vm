@@ -13,5 +13,9 @@
 - Added deterministic trap payload schema output (`TRAP_PAYLOAD ...`) and trace write-delta annotations in VM trace output.
 - Updated runtime contract artifact to `contract_version=2026-02-08-v2` with explicit `trap_payload_contract`.
 - Added runtime contract release checklist (`docs/release-checklist.md`) for `runtime-contract-v0.2` preparation.
+- Added deterministic runtime perf regression gate (`make perf-check`) with CI artifact upload and baseline contract.
+- Added loader fuzz smoke coverage (`vm_loader_fuzz_smoke_test`) for hardening.
+- Added preview execution mode plumbing (`--mode accelerated-preview`) with explicit mode parity check (`scripts/check-mode-parity.sh`).
+- Added acceleration feature-gating RFC (`docs/rfcs/RFC-0001-acceleration-feature-gating.md`) and execution-mode contract metadata.
 - Added host C ABI (`include/t81/vm/c_api.h`) and shared/static artifacts.
 - Added cross-repo CI (`.github/workflows/lang-compat.yml`) and ecosystem canary workflow support.

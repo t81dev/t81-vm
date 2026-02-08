@@ -41,7 +41,9 @@ std::string canonical_passthrough(const std::string& in) {
 }
 
 void usage() {
-  std::cerr << "usage: t81vm [--trace] [--snapshot] [--max-steps N] <program.t81vm|program.tisc.json>\n";
+  std::cerr
+      << "usage: t81vm [--trace] [--snapshot] [--max-steps N] [--mode interpreter|accelerated-preview] "
+         "<program.t81vm|program.tisc.json>\n";
 }
 
 }  // namespace
@@ -70,6 +72,7 @@ int main(int argc, char** argv) {
   bool emit_trace = false;
   bool emit_snapshot = false;
   std::size_t max_steps = 100000;
+  std::string mode = "interpreter";
   std::string program_path;
 
   for (std::size_t i = 0; i < args.size(); ++i) {
@@ -91,6 +94,16 @@ int main(int argc, char** argv) {
         return 2;
       }
       if (max_steps == 0) {
+        usage();
+        return 2;
+      }
+    } else if (arg == "--mode") {
+      if (i + 1 >= args.size()) {
+        usage();
+        return 2;
+      }
+      mode = args[++i];
+      if (mode != "interpreter" && mode != "accelerated-preview") {
         usage();
         return 2;
       }
@@ -122,6 +135,10 @@ int main(int argc, char** argv) {
   }
 
   auto vm = t81::vm::make_interpreter_vm();
+  if (mode == "accelerated-preview") {
+    // Acceleration mode is intentionally preview-only; behavior remains contract-compatible interpreter execution.
+    std::cerr << "MODE accelerated-preview (preview): using interpreter backend\n";
+  }
   vm->load_program(loaded.program);
   auto res = vm->run_to_halt(max_steps);
 

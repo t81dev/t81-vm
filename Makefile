@@ -1,4 +1,4 @@
-.PHONY: check docs-check build-check test-check harness-check examples-check perf-check canary-check clean tree
+.PHONY: check docs-check build-check test-check harness-check examples-check mode-parity-check perf-check canary-check clean tree
 
 CXX ?= c++
 CXXFLAGS ?= -std=c++23 -O2 -Wall -Wextra -Wpedantic -Iinclude
@@ -19,10 +19,14 @@ endif
 TEST_SRCS := $(wildcard tests/cpp/*_test.cpp)
 TEST_BINS := $(patsubst tests/cpp/%.cpp,build/%,$(TEST_SRCS))
 
-check: docs-check build-check test-check harness-check examples-check perf-check
+check: docs-check build-check test-check harness-check examples-check mode-parity-check perf-check
 
 canary-check:
 	@bash scripts/ecosystem-canary.sh
+
+mode-parity-check: $(VM_BIN)
+	@bash scripts/check-mode-parity.sh
+	@echo "mode-parity-check: ok"
 
 perf-check: $(VM_BIN)
 	@python3 scripts/perf-regression-check.py

@@ -13,6 +13,7 @@ REQUIRED_TOP_LEVEL = {
     "accepted_program_formats",
     "state_hash",
     "trace_contract",
+    "execution_modes",
     "trap_payload_contract",
     "trap_registry",
     "supported_opcodes",
@@ -21,6 +22,7 @@ REQUIRED_TOP_LEVEL = {
 
 REQUIRED_FORMATS = {"TextV1", "TiscJsonV1"}
 REQUIRED_TRAPS = {"DecodeFault", "TypeFault", "DivisionFault", "TrapInstruction"}
+REQUIRED_EXECUTION_MODES = {"interpreter", "accelerated-preview"}
 REQUIRED_OPCODES = {
     "Nop",
     "Halt",
@@ -131,6 +133,12 @@ def main() -> None:
     trace_contract = contract.get("trace_contract", {})
     if not str(trace_contract.get("format_version", "")).strip():
         raise SystemExit("trace_contract.format_version must be non-empty")
+
+    execution_modes = contract.get("execution_modes", [])
+    mode_names = {entry.get("name") for entry in execution_modes}
+    missing_modes = sorted(REQUIRED_EXECUTION_MODES - mode_names)
+    if missing_modes:
+        raise SystemExit(f"Missing required execution modes: {', '.join(missing_modes)}")
 
     trap_payload_contract = contract.get("trap_payload_contract", {})
     if not str(trap_payload_contract.get("format_version", "")).strip():

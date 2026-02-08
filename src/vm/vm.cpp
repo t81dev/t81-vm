@@ -120,20 +120,32 @@ class Interpreter final : public IVirtualMachine {
           return trap(Trap::DivisionFault, insn.opcode, pc, MemorySegmentKind::Unknown, "division by zero");
         }
         std::int64_t result = 0;
-        if (insn.opcode == t81::tisc::Opcode::Add || insn.opcode == t81::tisc::Opcode::FAdd ||
-            insn.opcode == t81::tisc::Opcode::FracAdd) {
-          result = lhs + rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::Sub || insn.opcode == t81::tisc::Opcode::FSub ||
-                   insn.opcode == t81::tisc::Opcode::FracSub) {
-          result = lhs - rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::Mul || insn.opcode == t81::tisc::Opcode::FMul ||
-                   insn.opcode == t81::tisc::Opcode::FracMul) {
-          result = lhs * rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::Div || insn.opcode == t81::tisc::Opcode::FDiv ||
-                   insn.opcode == t81::tisc::Opcode::FracDiv) {
-          result = lhs / rhs;
-        } else {
-          result = lhs % rhs;
+        switch (insn.opcode) {
+          case t81::tisc::Opcode::Add:
+          case t81::tisc::Opcode::FAdd:
+          case t81::tisc::Opcode::FracAdd:
+            result = lhs + rhs;
+            break;
+          case t81::tisc::Opcode::Sub:
+          case t81::tisc::Opcode::FSub:
+          case t81::tisc::Opcode::FracSub:
+            result = lhs - rhs;
+            break;
+          case t81::tisc::Opcode::Mul:
+          case t81::tisc::Opcode::FMul:
+          case t81::tisc::Opcode::FracMul:
+            result = lhs * rhs;
+            break;
+          case t81::tisc::Opcode::Div:
+          case t81::tisc::Opcode::FDiv:
+          case t81::tisc::Opcode::FracDiv:
+            result = lhs / rhs;
+            break;
+          case t81::tisc::Opcode::Mod:
+            result = lhs % rhs;
+            break;
+          default:
+            break;
         }
         set_register_value(static_cast<std::size_t>(insn.a), result, ValueTag::Int);
         set_flags(result);
@@ -218,18 +230,27 @@ class Interpreter final : public IVirtualMachine {
         const auto lhs = state_.registers[static_cast<std::size_t>(insn.b)];
         const auto rhs = state_.registers[static_cast<std::size_t>(insn.c)];
         bool result = false;
-        if (insn.opcode == t81::tisc::Opcode::Less) {
-          result = lhs < rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::LessEqual) {
-          result = lhs <= rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::Greater) {
-          result = lhs > rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::GreaterEqual) {
-          result = lhs >= rhs;
-        } else if (insn.opcode == t81::tisc::Opcode::Equal) {
-          result = lhs == rhs;
-        } else {
-          result = lhs != rhs;
+        switch (insn.opcode) {
+          case t81::tisc::Opcode::Less:
+            result = lhs < rhs;
+            break;
+          case t81::tisc::Opcode::LessEqual:
+            result = lhs <= rhs;
+            break;
+          case t81::tisc::Opcode::Greater:
+            result = lhs > rhs;
+            break;
+          case t81::tisc::Opcode::GreaterEqual:
+            result = lhs >= rhs;
+            break;
+          case t81::tisc::Opcode::Equal:
+            result = lhs == rhs;
+            break;
+          case t81::tisc::Opcode::NotEqual:
+            result = lhs != rhs;
+            break;
+          default:
+            break;
         }
         set_register_value(static_cast<std::size_t>(insn.a), result ? 1 : 0, ValueTag::Int);
         set_flags(state_.registers[static_cast<std::size_t>(insn.a)]);
