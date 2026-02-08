@@ -49,7 +49,7 @@ Use this checklist whenever changes touch:
 
 ## Runtime-Contract-v0.5 Status
 
-- Current status: in promotion.
+- Current status: tagged at `t81-vm` commit `4158a42156a085a2b722205be951576fc01969b9`.
 - Landed scope:
   - compatibility governance contract metadata (`compatibility_governance`)
   - cross-repo deterministic fixture artifact retention in ecosystem matrix workflow
