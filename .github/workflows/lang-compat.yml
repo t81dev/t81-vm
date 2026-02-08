@@ -1,0 +1,25 @@
+name: lang-compat
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check-lang-compat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout t81-vm
+        uses: actions/checkout@v4
+        with:
+          path: t81-vm
+      - name: Checkout t81-lang
+        uses: actions/checkout@v4
+        with:
+          repository: t81dev/t81-lang
+          path: t81-lang
+      - name: Run compatibility check from t81-lang
+        run: python3 scripts/check-vm-compat.py
+        working-directory: t81-lang
+        env:
+          T81_VM_DIR: ${{ github.workspace }}/t81-vm

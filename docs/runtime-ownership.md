@@ -32,3 +32,9 @@ Contract-impacting changes in any of these surfaces require:
 1. Contract artifact update in `docs/contracts/vm-compatibility.json`.
 2. Compatibility note update in `docs/ecosystem-map.md`.
 3. Cross-repo acknowledgement in `t81-lang` compatibility docs and checks.
+
+## Release Cadence Rule
+
+- Contract-impacting runtime changes must bump `contract_version` in `docs/contracts/vm-compatibility.json`.
+- The same change must include a changelog note in the dependent repositories (`t81-lang`, `t81-python`) before merge.
+- Runtime contract tags follow `runtime-contract-vX.Y` and are published from `t81-vm`.

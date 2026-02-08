@@ -42,6 +42,12 @@ make check
 
 `make check` validates docs, builds the VM, runs C++ regression tests, and runs deterministic replay harness checks.
 
+Cross-repo canary check:
+
+```bash
+make canary-check
+```
+
 CLI example:
 
 ```bash

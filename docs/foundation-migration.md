@@ -78,3 +78,17 @@ This document maps concrete assets in `t81dev/t81-foundation` to migration actio
 4. Add a deterministic replay harness (`run twice -> hash trace -> compare`).
 
 This sequence gives contract depth plus immediate regression protection without importing monorepo complexity.
+
+## Next Parity Slices
+
+### Slice A (immediate)
+
+1. Expand control-flow and stack op coverage for conditional branches and call/ret corner-cases.
+2. Extend memory/segment trace verification for stack/heap/meta boundary events.
+3. Keep `docs/contracts/vm-compatibility.json` in sync with supported opcode set.
+
+### Slice B (after A is stable)
+
+1. Port selected extended VM tests (`vm_extended_ops`, targeted `vm_memory` deep cases).
+2. Add additional deterministic replay vectors from upstream runtime semantics.
+3. Publish updated compatibility notes for downstream consumers (`t81-lang`, `t81-python`).

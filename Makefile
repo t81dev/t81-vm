@@ -1,4 +1,4 @@
-.PHONY: check docs-check build-check test-check harness-check examples-check clean tree
+.PHONY: check docs-check build-check test-check harness-check examples-check canary-check clean tree
 
 CXX ?= c++
 CXXFLAGS ?= -std=c++23 -O2 -Wall -Wextra -Wpedantic -Iinclude
@@ -20,6 +20,9 @@ TEST_SRCS := $(wildcard tests/cpp/*_test.cpp)
 TEST_BINS := $(patsubst tests/cpp/%.cpp,build/%,$(TEST_SRCS))
 
 check: docs-check build-check test-check harness-check examples-check
+
+canary-check:
+	@bash scripts/ecosystem-canary.sh
 
 docs-check:
 	@test -f README.md

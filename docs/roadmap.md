@@ -27,6 +27,8 @@ Exit criteria:
 - Expose stable embedding API for `t81-python`.
 - Add execution traces and trap diagnostics.
 - Add package-level bytecode compatibility checks.
+- Add cross-repo compatibility CI gate with `t81-lang`.
+- Add end-to-end ecosystem canary (`t81-lang` -> `t81-vm` -> `t81-python`).
 
 Exit criteria:
 
