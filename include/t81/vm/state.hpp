@@ -21,6 +21,12 @@ struct TraceEntry {
 
 enum class ValueTag : std::uint8_t {
   Int = 0,
+  TensorHandle,
+  ShapeHandle,
+  WeightsTensorHandle,
+  OptionHandle,
+  ResultHandle,
+  EnumHandle,
 };
 
 struct Flags {
@@ -83,10 +89,35 @@ struct Policy {
   int tier = 0;
 };
 
+struct OptionValue {
+  bool has_value = false;
+  ValueTag payload_tag = ValueTag::Int;
+  std::int64_t payload = 0;
+};
+
+struct ResultValue {
+  bool is_ok = false;
+  ValueTag payload_tag = ValueTag::Int;
+  std::int64_t payload = 0;
+};
+
+struct EnumValue {
+  std::int64_t variant_id = 0;
+  bool has_payload = false;
+  ValueTag payload_tag = ValueTag::Int;
+  std::int64_t payload = 0;
+};
+
+struct TensorValue {
+  std::vector<std::int64_t> shape;
+  std::vector<std::int64_t> data;
+};
+
 struct State {
   std::size_t pc = 0;
   bool halted = false;
   std::array<std::int64_t, 243> registers{};
+  std::array<ValueTag, 243> register_tags{};
   std::vector<std::int64_t> memory;
   std::vector<TraceEntry> trace;
   std::vector<AxionEvent> axion_log;
@@ -96,6 +127,11 @@ struct State {
   std::size_t heap_ptr = 0;
   std::vector<std::pair<std::size_t, std::size_t>> stack_frames;
   std::vector<std::pair<std::size_t, std::size_t>> heap_frames;
+  std::vector<OptionValue> option_pool;
+  std::vector<ResultValue> result_pool;
+  std::vector<EnumValue> enum_pool;
+  std::vector<TensorValue> tensor_pool;
+  std::vector<std::vector<std::int64_t>> shape_pool;
   std::optional<Policy> policy;
   std::size_t gc_cycles = 0;
 };

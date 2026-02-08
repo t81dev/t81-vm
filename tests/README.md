@@ -14,6 +14,7 @@ Highlighted VM migration suites:
 - `vm_jump_flags_test.cpp`
 - `vm_bounds_trace_test.cpp`
 - `vm_neg_jumps_test.cpp`
+- `vm_tensor_test.cpp`
 
 Planned expansions:
 

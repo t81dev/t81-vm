@@ -62,6 +62,40 @@ bool valid_opcode(t81::tisc::Opcode opcode) {
     case Opcode::StackFree:
     case Opcode::HeapAlloc:
     case Opcode::HeapFree:
+    case Opcode::TNot:
+    case Opcode::TAnd:
+    case Opcode::TOr:
+    case Opcode::TXor:
+    case Opcode::AxRead:
+    case Opcode::AxSet:
+    case Opcode::AxVerify:
+    case Opcode::TVecAdd:
+    case Opcode::TMatMul:
+    case Opcode::TTenDot:
+    case Opcode::TVecMul:
+    case Opcode::TTranspose:
+    case Opcode::TExp:
+    case Opcode::TSqrt:
+    case Opcode::TSiLU:
+    case Opcode::TSoftmax:
+    case Opcode::TRMSNorm:
+    case Opcode::TRoPE:
+    case Opcode::ChkShape:
+    case Opcode::WeightsLoad:
+    case Opcode::SetF:
+    case Opcode::MakeOptionSome:
+    case Opcode::MakeOptionNone:
+    case Opcode::MakeResultOk:
+    case Opcode::MakeResultErr:
+    case Opcode::OptionIsSome:
+    case Opcode::OptionUnwrap:
+    case Opcode::ResultIsOk:
+    case Opcode::ResultUnwrapOk:
+    case Opcode::ResultUnwrapErr:
+    case Opcode::MakeEnumVariant:
+    case Opcode::MakeEnumVariantPayload:
+    case Opcode::EnumIsVariant:
+    case Opcode::EnumUnwrapPayload:
       return true;
   }
   return false;
@@ -109,7 +143,38 @@ std::optional<Trap> validate_program(const t81::tisc::Program& program) {
       case t81::tisc::Opcode::GreaterEqual:
       case t81::tisc::Opcode::Equal:
       case t81::tisc::Opcode::NotEqual:
+      case t81::tisc::Opcode::TAnd:
+      case t81::tisc::Opcode::TOr:
+      case t81::tisc::Opcode::TXor:
+      case t81::tisc::Opcode::TVecAdd:
+      case t81::tisc::Opcode::TMatMul:
+      case t81::tisc::Opcode::TTenDot:
+      case t81::tisc::Opcode::TVecMul:
+      case t81::tisc::Opcode::ChkShape:
         if (!valid_reg(insn.a) || !valid_reg(insn.b) || !valid_reg(insn.c)) {
+          return Trap::DecodeFault;
+        }
+        break;
+      case t81::tisc::Opcode::MakeOptionSome:
+      case t81::tisc::Opcode::MakeResultOk:
+      case t81::tisc::Opcode::MakeResultErr:
+      case t81::tisc::Opcode::OptionIsSome:
+      case t81::tisc::Opcode::OptionUnwrap:
+      case t81::tisc::Opcode::ResultIsOk:
+      case t81::tisc::Opcode::ResultUnwrapOk:
+      case t81::tisc::Opcode::ResultUnwrapErr:
+      case t81::tisc::Opcode::MakeEnumVariantPayload:
+      case t81::tisc::Opcode::EnumIsVariant:
+      case t81::tisc::Opcode::EnumUnwrapPayload:
+      case t81::tisc::Opcode::TTranspose:
+      case t81::tisc::Opcode::TExp:
+      case t81::tisc::Opcode::TSqrt:
+      case t81::tisc::Opcode::TSiLU:
+      case t81::tisc::Opcode::TSoftmax:
+      case t81::tisc::Opcode::TRMSNorm:
+      case t81::tisc::Opcode::TRoPE:
+      case t81::tisc::Opcode::TNot:
+        if (!valid_reg(insn.a) || !valid_reg(insn.b)) {
           return Trap::DecodeFault;
         }
         break;
@@ -137,7 +202,18 @@ std::optional<Trap> validate_program(const t81::tisc::Program& program) {
       case t81::tisc::Opcode::StackFree:
       case t81::tisc::Opcode::HeapAlloc:
       case t81::tisc::Opcode::HeapFree:
+      case t81::tisc::Opcode::MakeOptionNone:
+      case t81::tisc::Opcode::MakeEnumVariant:
+      case t81::tisc::Opcode::AxRead:
+      case t81::tisc::Opcode::AxVerify:
+      case t81::tisc::Opcode::WeightsLoad:
         if (!valid_reg(insn.a)) {
+          return Trap::DecodeFault;
+        }
+        break;
+      case t81::tisc::Opcode::AxSet:
+      case t81::tisc::Opcode::SetF:
+        if (!valid_reg(insn.a) || !valid_reg(insn.b)) {
           return Trap::DecodeFault;
         }
         break;

@@ -7,5 +7,8 @@
 - Expanded VM opcode/runtime slice and conformance tests.
 - Added P0 parity opcodes (`Less*`, `Greater*`, `Equal*`, `I2F`, `F2I`, `I2Frac`, `Frac2I`) and `vm_extended_ops_test`.
 - Added P1 numeric parity opcodes (`FAdd`, `FSub`, `FMul`, `FDiv`, `FracAdd`, `FracSub`, `FracMul`, `FracDiv`) and `vm_float_fraction_ops_test`.
+- Added P2 structured value parity opcodes (`MakeOption*`, `Option*`, `MakeResult*`, `Result*`, `MakeEnum*`, `Enum*`) and `structured_values_test`.
+- Added Axion parity hooks (`AxRead`, `AxSet`, `AxVerify`) and ternary logical ops (`TNot`, `TAnd`, `TOr`, `TXor`) with `vm_extended_ops_test` coverage.
+- Added tensor/runtime parity opcodes (`TVecAdd`, `TMatMul`, `TTenDot`, `TVecMul`, `TTranspose`, `TExp`, `TSqrt`, `TSiLU`, `TSoftmax`, `TRMSNorm`, `TRoPE`, `ChkShape`, `WeightsLoad`, `SetF`) and `vm_tensor_test`.
 - Added host C ABI (`include/t81/vm/c_api.h`) and shared/static artifacts.
 - Added cross-repo CI (`.github/workflows/lang-compat.yml`) and ecosystem canary workflow support.
