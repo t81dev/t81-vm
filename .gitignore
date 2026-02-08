@@ -1,1 +1,15 @@
 build/
+
+# macOS / filesystem noise
+.DS_Store
+
+# Editor/IDE temp files
+*.swp
+*.swo
+*~
+
+# Test/coverage artifacts
+*.gcda
+*.gcno
+*.gcov
+coverage/
