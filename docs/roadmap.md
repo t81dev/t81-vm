@@ -31,7 +31,7 @@ Exit criteria:
 - Add cross-repo compatibility CI gate with `t81-lang`.
 - Add ecosystem contract fan-out CI (`ecosystem-contract.yml`) across `t81-lang`, `t81-python`, and `t81-docs`.
 - Add end-to-end ecosystem canary (`t81-lang` -> `t81-vm` -> `t81-python`).
-- Publish runtime contract release checklist for `runtime-contract-v0.4` preparation.
+- Publish runtime contract release checklist for `runtime-contract-v0.5` preparation.
 
 Exit criteria:
 
@@ -54,7 +54,7 @@ Exit criteria:
 - Explore compatibility-safe acceleration paths.
 - Evaluate hardware co-targeting with `t81-hardware`.
 - Define long-term feature gating model (see `docs/rfcs/RFC-0001-acceleration-feature-gating.md`).
-- Define and land `runtime-contract-v0.4` scope (see `docs/rfcs/RFC-0002-runtime-contract-v0.4-scope.md`).
+- Define and land `runtime-contract-v0.5` scope (see `docs/rfcs/RFC-0002-runtime-contract-v0.5-scope.md`).
 
 Exit criteria:
 

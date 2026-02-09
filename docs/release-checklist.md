@@ -40,8 +40,10 @@ Use this checklist whenever changes touch:
 
 ## Runtime-Contract-v0.4 Status
 
+Historical milestone completed; retained for migration traceability.
+
 - Current status: tagged at `t81-vm` commit `94a62c0f822eef42c8cad88c520ad99f7575ecef`.
-- Tracking RFC: `docs/rfcs/RFC-0002-runtime-contract-v0.4-scope.md`
+- Tracking RFC: `docs/rfcs/RFC-0002-runtime-contract-v0.5-scope.md`
 - Landed scope:
   - machine-readable execution-mode parity evidence metadata in `docs/contracts/vm-compatibility.json`
   - parity evidence generation artifact: `build/mode-parity/parity-evidence.json`
@@ -50,6 +52,7 @@ Use this checklist whenever changes touch:
 ## Runtime-Contract-v0.5 Status
 
 - Current status: tagged at `t81-vm` commit `4158a42156a085a2b722205be951576fc01969b9`.
+- Tracking RFC: `docs/rfcs/RFC-0002-runtime-contract-v0.5-scope.md`
 - Landed scope:
   - compatibility governance contract metadata (`compatibility_governance`)
   - cross-repo deterministic fixture artifact retention in ecosystem matrix workflow
