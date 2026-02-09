@@ -55,6 +55,7 @@ Exit criteria:
 - Evaluate hardware co-targeting with `t81-hardware`.
 - Define long-term feature gating model (see `docs/rfcs/RFC-0001-acceleration-feature-gating.md`).
 - Define and land `runtime-contract-v0.5` scope (see `docs/rfcs/RFC-0002-runtime-contract-v0.5-scope.md`).
+- Define `runtime-contract-v0.6` planning scope (see `docs/rfcs/RFC-0003-runtime-contract-v0.6-planning.md`).
 
 Exit criteria:
 

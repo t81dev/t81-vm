@@ -57,3 +57,9 @@ Historical milestone completed; retained for migration traceability.
   - compatibility governance contract metadata (`compatibility_governance`)
   - cross-repo deterministic fixture artifact retention in ecosystem matrix workflow
   - runtime marker discipline alignment for migration status automation
+
+## Runtime-Contract-v0.6 Planning Status
+
+- Current status: planning draft open.
+- Tracking RFC: `docs/rfcs/RFC-0003-runtime-contract-v0.6-planning.md`
+- Roadmap tracker: `t81-roadmap#24`
