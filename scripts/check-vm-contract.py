@@ -237,19 +237,19 @@ def main() -> None:
         )
 
     deterministic_fixture = str(compatibility_governance.get("deterministic_fixture", "")).strip()
-    if deterministic_fixture != "t81-examples/scripts/run-runtime-v0.4-e2e.sh":
+    if deterministic_fixture != "t81-examples/scripts/run-runtime-v0.5-e2e.sh":
         raise SystemExit(
             "compatibility_governance.deterministic_fixture must be "
-            "'t81-examples/scripts/run-runtime-v0.4-e2e.sh'"
+            "'t81-examples/scripts/run-runtime-v0.5-e2e.sh'"
         )
 
     required_release_artifact = str(
         compatibility_governance.get("required_release_artifact", "")
     ).strip()
-    if required_release_artifact != "runtime-v0.4-e2e-evidence":
+    if required_release_artifact != "runtime-v0.5-e2e-evidence":
         raise SystemExit(
             "compatibility_governance.required_release_artifact must be "
-            "'runtime-v0.4-e2e-evidence'"
+            "'runtime-v0.5-e2e-evidence'"
         )
 
     trap_payload_contract = contract.get("trap_payload_contract", {})
